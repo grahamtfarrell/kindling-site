@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Instrument+Sans:wght@400..700&family=Texturina:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:wght@400;500&display=swap");
+
+.kd-scope, body { background: var(--paper); color: var(--ink); font-family: var(--font-sans); font-size: 16px; line-height: 22px; }
+
+.kd-mono-label { font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+
+/* Marker */
+.kd-marker { display: inline-block; flex: none; fill: var(--orange); }
+
+/* Button: sharp, 1px outline, Instrument Sans 500 */
+.kd-btn { font-family: var(--font-sans); font-size: 16px; line-height: 20px; font-weight: 500; padding: 9px 20px; border: 1px solid transparent; border-radius: var(--radius-none); background: transparent; color: var(--ink); cursor: pointer; white-space: nowrap; }
+.kd-btn-primary { background: var(--orange); border-color: var(--orange); color: var(--white); }
+.kd-btn-primary:hover { background: var(--ink); border-color: var(--ink); }
+.kd-btn-outline { border-color: var(--orange); color: var(--orange); }
+.kd-btn-outline:hover { background: var(--orange); color: var(--white); }
+.kd-btn-ink { border-color: var(--ink); color: var(--ink); }
+.kd-btn-ink:hover { background: var(--ink); color: var(--paper); }
+.kd-btn:focus-visible, .kd-nav-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* Logo */
+.kd-logo { display: block; width: auto; max-width: none; }
+.kd-nav-home { display: inline-flex; justify-self: center; }
+
+/* NavBar */
+.kd-nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--space-5); padding: var(--space-5) var(--space-6); background: var(--paper); }
+.kd-nav-links { display: flex; gap: var(--space-6); }
+.kd-nav-end { display: flex; gap: var(--space-5); align-items: center; justify-content: flex-end; }
+.kd-nav-link { font-family: var(--font-sans); font-size: 16px; line-height: 20px; font-weight: 500; color: var(--ink); text-decoration: none; }
+.kd-nav-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Headline */
+.kd-headline { margin: 0; font-family: var(--font-display); font-weight: 500; color: var(--ink); }
+.kd-headline-xl { font-size: 56px; line-height: 56px; }
+.kd-headline-md { font-size: 28px; line-height: 32px; }
+.kd-headline .kd-accent { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--orange); }
+
+/* PhotoFrame */
+.kd-frame { margin: 0; position: relative; }
+.kd-frame-markers { display: flex; align-items: center; gap: var(--space-2); height: 16px; margin-bottom: var(--space-2); color: var(--orange); }
+.kd-frame-spacer { flex: 1; }
+.kd-frame-media { position: relative; background: var(--cream-3); }
+.kd-frame-media img { display: block; width: 100%; height: auto; }
+.kd-frame-empty { aspect-ratio: 4 / 5; border: 1px solid var(--ink); background: transparent; }
+.kd-frame-chamfer .kd-frame-media { clip-path: polygon(0 0, 63% 0, 100% 18%, 100% 100%, 0 100%); }
+.kd-caption { position: absolute; left: var(--space-4); bottom: var(--space-4); display: flex; flex-direction: column; font-family: var(--font-mono); font-size: 11px; line-height: 12px; font-weight: 400; text-transform: uppercase; color: var(--white); }
+.kd-caption span:not(:first-child) { padding-left: var(--space-2); }
+
+/* StoryCard */
+.kd-story { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); max-width: 360px; }
+.kd-story .kd-frame { width: 100%; }
+.kd-story-title { margin: var(--space-3) 0 0; font-family: var(--font-display); font-size: 36px; line-height: 40px; font-weight: 600; color: var(--orange); }
+.kd-story-body { margin: 0; font-size: 16px; line-height: 22px; color: var(--ink); }
+
+/* ChevronList */
+.kd-chevrons { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--space-7); flex-wrap: wrap; }
+.kd-chevrons li { display: inline-flex; align-items: center; gap: var(--space-3); font-size: 16px; line-height: 20px; font-weight: 500; color: var(--ink); }
+
+/* LogoStrip */
+.kd-logos { display: flex; align-items: baseline; gap: var(--space-7); flex-wrap: wrap; }
+.kd-logos-label { font-size: 16px; line-height: 20px; font-weight: 500; color: var(--ink); }
+.kd-logos-name { font-family: var(--font-display); font-size: 20px; line-height: 24px; font-weight: 500; color: var(--ink-2); }
+
+/* ProcessRail */
+.kd-rail { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); color: var(--white); }
+.kd-rail .kd-logo { flex: none; }

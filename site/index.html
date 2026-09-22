@@ -1,0 +1,719 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Kindling</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Instrument+Sans:wght@400..700&family=Texturina:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:wght@400;500;700&display=swap"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<style>
+:root{
+  --paper:#FAFAFA; --ink:#381105; --ink-2:#7A6058; --ink-3:#B8ABA7;
+  --orange:#FF6800; --cream:#FFF5E5; --olive:#D4C284; --amber:#FF9E37; --hairline:#EDEBEA;
+  --font-display:"Syne","Instrument Sans",system-ui,sans-serif;
+  --font-sans:"Instrument Sans",system-ui,sans-serif;
+  --font-serif:"Texturina",Georgia,serif;
+  --font-mono:"Roboto Mono",ui-monospace,monospace;
+  --space-2:8px; --space-3:12px; --space-4:16px; --space-5:24px; --space-6:32px; --space-7:48px; --space-8:64px; --space-9:96px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:22px;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.on-dark :focus-visible{outline-color:var(--cream)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* ---------- page + grid ground ---------- */
+.page{position:relative;overflow:clip}
+/* the grid scrolls with the page. Rows are 57px starting at --gy, placed so the top nav sits
+   centred in the first row; columns are --gw wide starting at --gx (all set from JS in whole
+   pixels) so the viewfinder frame and ruler can sit exactly on its lines. */
+.page::before,.page::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-size:var(--gw,15%) 100%,100% 57px;
+  background-position:var(--gx,5%) 0,0 var(--gy,44px)}
+.page::before{
+  background-image:
+    linear-gradient(to right,var(--hairline) 1px,transparent 1px),
+    linear-gradient(to bottom,var(--hairline) 1px,transparent 1px)}
+.page::after{opacity:0;transition:opacity .6s var(--e,ease);
+  background-image:
+    linear-gradient(to right,var(--ink-3) 1px,transparent 1px),
+    linear-gradient(to bottom,var(--ink-3) 1px,transparent 1px);
+  -webkit-mask-image:radial-gradient(circle 240px at var(--mx,-999px) var(--my,-999px),#000 0,rgba(0,0,0,.35) 45%,transparent 100%);
+          mask-image:radial-gradient(circle 240px at var(--mx,-999px) var(--my,-999px),#000 0,rgba(0,0,0,.35) 45%,transparent 100%)}
+.page.lit::after{opacity:.55}
+.page>*{position:relative;z-index:1}
+.wrap{width:90%;margin-inline:auto}
+
+/* ---------- shared bits ---------- */
+.chev{width:14px;height:5px;fill:var(--orange);flex:none;display:inline-block}
+.acc{font-family:var(--font-serif);font-style:italic;font-weight:500;color:var(--orange)}
+.mono{font-family:var(--font-mono);font-size:12px;line-height:16px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.btn{display:inline-block;font:500 16px/20px var(--font-sans);padding:9px 20px;border:1px solid transparent;background:transparent;color:var(--ink);text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color .15s,color .15s,border-color .15s}
+.btn-primary{background:var(--orange);border-color:var(--orange);color:var(--cream)}
+.btn-primary:hover{background:var(--ink);border-color:var(--ink)}
+.btn-outline{border-color:var(--orange);color:var(--orange)}
+.btn-outline:hover{background:var(--orange);color:var(--cream)}
+.btn-ink{border-color:var(--ink);color:var(--ink)}
+.btn-ink:hover{background:var(--ink);color:var(--paper)}
+.link{font:500 16px/20px var(--font-sans);text-decoration:none;color:var(--ink)}
+.hero .nav-links .link,.hero .nav-end .link{transition:color .2s}
+.hero .nav-links .link:hover,.hero .nav-end .link:hover{color:var(--olive)}
+
+/* photo frame */
+.frame{margin:0;container-type:inline-size}
+.mk{display:flex;align-items:center;gap:8px;height:16px;margin-bottom:8px;color:var(--orange);padding-right:var(--mk-end,16%)}
+.mk .sp{flex:1}
+.media{position:relative;background:var(--olive);aspect-ratio:4/5;overflow:hidden}
+.media img{width:100%;height:100%;object-fit:cover}
+.frame.cut .media{clip-path:polygon(0 0,63% 0,100% 18%,100% 100%,0 100%)}
+.frame.cut{--mk-end:40%}
+.cap{position:absolute;left:4cqw;bottom:4cqw;display:flex;flex-direction:column;font:400 max(8px,3.3cqw)/1.18 var(--font-mono);text-transform:uppercase;color:var(--cream);white-space:nowrap}
+.cap span+span{padding-left:.6em}
+
+/* ---------- 1. hero ---------- */
+.hero{padding-bottom:0}
+.canvas{position:relative;container-type:inline-size;aspect-ratio:1296/967;width:90%;margin-inline:auto}
+.canvas>*{position:absolute}
+.nav-links{left:1.2%;top:5.6%;transform:translateY(-50%);display:flex;gap:3.6cqw}
+.nav-links .link{font-size:max(13px,1.23cqw);line-height:1.5}
+.brand{left:50%;top:5.6%;transform:translate(-50%,-50%);display:block}
+.brand img{height:3.05cqw;width:auto}
+.nav-end{right:1.6%;top:5.6%;transform:translateY(-50%);display:flex;align-items:center;gap:2.6cqw}
+.nav-end .link,.nav-end .btn{font-size:max(13px,1.23cqw);line-height:1.6}
+.nav-end .btn{padding:.7cqw 1.55cqw}
+.stack{left:38.6%;top:20.9%;width:39.7%}
+.stack .sw{width:100%;height:auto;aspect-ratio:1232/922;object-fit:cover}
+.stack .desk{position:absolute;left:65.5%;top:40.2%;width:56.9%;container-type:inline-size}
+.stack .desk .media{aspect-ratio:697/866}
+/* v.2 hero: film viewfinder frame over an offset orange contact sheet */
+.stack2{display:none}
+.v2 .stack{display:none}
+.v2 .stack2{display:block;left:47.6%;top:23.5%;width:47.9%;aspect-ratio:3/2}
+.stack2 img{position:absolute;display:block;max-width:none}
+.stack2 .cs{left:-2.46%;top:7.3%;width:97.8%;height:auto}
+.stack2 .pool{inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
+/* intro: orange screen, the wordmark inks in, melts into the orange, then the page is revealed */
+.intro-screen{display:none}
+.intro{overflow:hidden}
+.intro .intro-screen{display:flex;position:fixed;inset:0;z-index:100;align-items:center;justify-content:center;background:var(--orange);transition:opacity .7s var(--e)}
+.intro .intro-screen.out{opacity:0}
+.intro-mark{width:clamp(110px,11vw,170px);height:auto;overflow:visible}
+.intro-hold .hero h1,.intro-hold .hero .lead,.intro-hold .hero .cta,.intro-hold .offers,.intro-hold .hero-bottom>*{animation-play-state:paused}
+
+/* v.1 / v.2 switch for client review */
+.vtog{position:fixed;z-index:67;top:calc(var(--gy,20px) + 57px + 10px);left:calc(var(--vx1,95%) - 10px);transform:translateX(-100%);display:flex;gap:6px;font:500 11px/1 var(--font-mono);letter-spacing:.06em;color:var(--ink-3)}
+.vtog a{color:var(--ink-3);text-decoration:none;transition:color .2s}
+.vtog a:hover,.vtog a[aria-current]{color:var(--ink)}
+.hero h1{margin:0;left:7.6%;top:31%;font:500 4.32cqw/4.17cqw var(--font-display);white-space:nowrap;z-index:2}
+.hero h1 .acc{font-size:4.32cqw}
+.hero .lead{margin:0;left:7.6%;top:50.9%;font:400 max(14px,1.39cqw)/1.9 var(--font-sans);z-index:2;white-space:nowrap}
+.hero .cta{left:7.6%;top:56.8%;display:flex;gap:2.2cqw;z-index:2}
+.hero .cta .btn{font-size:max(13px,1.23cqw);line-height:1.6;padding:.7cqw 1.55cqw}
+.offers{margin:0;padding:0;list-style:none;left:6.9%;top:64.7%;display:flex;gap:3.4cqw;z-index:2}
+.offers li{display:flex;align-items:center;gap:.8cqw;font:500 max(13px,1.23cqw)/1.5 var(--font-sans);white-space:nowrap}
+.offers .chev{width:max(11px,.95cqw);height:max(4px,.36cqw)}
+.hero-bottom{display:contents}
+.trusted,.tn{position:absolute}
+.trusted{left:6.4%;top:90%;transform:translateY(-50%);font:500 max(13px,1.23cqw)/1.5 var(--font-sans);color:var(--orange);white-space:nowrap}
+.tn{transform:translateY(-50%);top:90%;font:500 max(14px,1.55cqw)/1.5 var(--font-display);color:var(--ink-2);white-space:nowrap}
+
+/* ---------- 2. stories ---------- */
+.stories{padding:66px 0 0}
+.stories h2{margin:0 auto;text-align:center;font:500 clamp(34px,4.1vw,60px)/1.02 var(--font-display);text-wrap:balance}
+.stories h2 .acc{font-size:1em}
+.work-head{text-align:center;margin-bottom:clamp(40px,5vw,72px)}
+.work-head h2{margin:0 auto;font:500 clamp(34px,4.1vw,60px)/1.02 var(--font-display);text-wrap:balance}
+.work-head h2 .acc{font-size:1em}
+.work-head .lead{margin:var(--space-5) auto 0;font:400 18px/26px var(--font-sans);max-width:34em;text-wrap:balance}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);column-gap:7.4%;padding-inline:.9%;margin-top:clamp(40px,5vw,72px)}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.card .frame{width:100%}
+.card h3{margin:12px 0 0;font:600 clamp(26px,2.6vw,38px)/1.08 var(--font-display);color:var(--orange)}
+.card p{margin:0;font:400 16px/22px var(--font-sans);max-width:34ch}
+.card .btn{margin-top:8px}
+
+/* ---------- 3. stage ---------- */
+/* while pinned, the bike frame fills exactly the viewfinder brackets (--vx0/--vx1/--vy0/--vyb come from JS) */
+.stage-pin{margin-top:clamp(56px,6vw,88px);height:calc(var(--vyb,100vh) - var(--vy0,0px) + 5*55vh)}
+.stage{position:sticky;top:var(--vy0,0px);margin:0 0 0 var(--vx0,2.75%);width:calc(var(--vx1,97.25%) - var(--vx0,2.75%) + 1px);height:calc(var(--vyb,100vh) - var(--vy0,0px) + 1px);overflow:hidden;container-type:inline-size;background:#3d3a22 url(img/stage.jpg) center/cover no-repeat;color:var(--cream)}
+.stage .top{position:absolute;left:3.2%;top:6.8%}
+.stage h2{position:static;margin:0;font:400 2.9cqw/1.13 var(--font-display);max-width:42cqw;text-wrap:balance}
+.stage .sub{margin:.8cqw 0 0;font:400 1.3cqw/1.5 var(--font-sans)}
+.rail{position:absolute;left:0;right:0;top:54.4%;transform:translateY(-50%)}
+.rail span{position:absolute;transform:translateY(-50%);font:500 max(9px,.85cqw)/1 var(--font-mono);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.rail img{position:absolute;left:88%;transform:translateY(-50%);height:3.1cqw;width:auto}
+
+/* ---------- 4. grid ---------- */
+.work{padding:clamp(56px,6vw,88px) 0 clamp(64px,7vw,104px)}
+.mosaic{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(28px,2.9vw,40px) 2.8%;padding-inline:1.6%}
+
+/* ---------- 5. closing + footer ---------- */
+/* flower photo, untouched, cropped to the band; ink type reads over the bright daisy */
+.closing{color:var(--ink);padding:clamp(64px,8vw,112px) 0 var(--space-7);
+  background:#6b5a3c url(img/closing-flowers.jpg) 42% 48%/cover no-repeat}
+.page>.closing{z-index:1}
+.closing .in{width:90%;margin-inline:auto}
+.closing h2{margin:0 auto;text-align:center;font:500 clamp(34px,4.1vw,60px)/1.02 var(--font-display);text-wrap:balance;max-width:16em}
+.closing h2 .acc{font-size:1em;color:var(--orange)}
+.closing p{margin:var(--space-5) auto 0;text-align:center;font:400 18px/26px var(--font-sans);max-width:36em;color:var(--ink);font-weight:500}
+.closing .cta{display:flex;justify-content:center;gap:16px;margin-top:var(--space-6);flex-wrap:wrap}
+.closing .btn-outline{border-color:var(--ink);color:var(--ink)}
+.closing .btn-outline:hover{background:var(--ink);color:var(--cream)}
+
+/* ---------- 6. footer: fills exactly one screen at any size ---------- */
+.site-foot{background:var(--orange);color:var(--ink)}
+/* --u is 1% of the width, reined in on short, wide screens so nothing collides;
+   --fw is the wordmark width (image is 0.306 as tall as wide) */
+.fc{position:relative;height:100vh;height:100svh;container-type:size;--u:min(1cqw,1.57cqh);--fw:min(94cqw,150cqh);--below:calc(1.6cqh + .306*var(--fw) + 3cqh)}
+.fc>*{position:absolute;margin:0}
+.fw{left:3.2cqw;top:1.6cqh;width:var(--fw);height:auto}
+.est,.roman{font-family:var(--font-serif);font-weight:500;line-height:.98}
+.est{left:3.2cqw;top:calc(1.6cqh + .245*var(--fw) + 3cqh);font-size:calc(5.4*var(--u))}
+.roman{right:3.6cqw;top:var(--below);font-size:calc(5.6*var(--u));letter-spacing:-.01em}
+.scatter{left:0;right:0;top:var(--below);bottom:0;pointer-events:none}
+.scatter span{position:absolute;font:400 max(12px,calc(1.35*var(--u)))/1 var(--font-sans);text-transform:uppercase}
+.fnav{left:3.7cqw;bottom:5cqh;display:flex;flex-direction:column;align-items:flex-start;gap:max(8px,calc(.95*var(--u)))}
+.fh{margin:0 0 max(4px,calc(.2*var(--u)));font:500 max(18px,calc(1.7*var(--u)))/1 var(--font-serif)}
+.fnav>a{font:400 max(11px,calc(.66*var(--u)))/1.2 var(--font-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .2s}
+.fnav>a:hover{color:var(--cream)}
+.social{display:flex;gap:max(10px,calc(.9*var(--u)));margin-top:max(8px,calc(.9*var(--u)))}
+.social a{display:block;color:var(--ink);transition:color .2s}
+.social a:hover{color:var(--cream)}
+.social svg{display:block;width:max(18px,calc(1.25*var(--u)));height:max(18px,calc(1.25*var(--u)));fill:currentColor}
+.legal{right:3.9cqw;bottom:5.2cqh;text-align:right;font:400 max(13px,calc(1.35*var(--u)))/1.15 var(--font-sans)}
+.site-foot :focus-visible{outline-color:var(--ink)}
+
+/* ---------- narrower than a desktop frame ---------- */
+@media (max-width:900px){
+  .canvas{aspect-ratio:auto;container-type:normal;width:auto;margin-inline:16px;padding-top:20px;display:flex;flex-direction:column;gap:24px}
+  .canvas>*{position:static;transform:none!important}
+  .navrow{display:flex;flex-direction:column;align-items:center;gap:16px}
+  .br-none{}
+  br.d{display:none}
+  .brand{order:-1;align-self:center}.brand img{height:40px}
+  .nav-links{gap:24px;justify-content:center;flex-wrap:wrap}
+  .nav-links .link,.nav-end .link,.nav-end .btn,.hero .cta .btn,.offers li{font-size:16px;line-height:20px}
+  .nav-end{gap:20px;justify-content:center}
+  .nav-end .btn{padding:9px 20px}
+  .hero h1{font-size:clamp(38px,9.5vw,60px);line-height:1.05;white-space:normal;margin-top:8px}
+  .hero h1 .acc{font-size:1em}
+  .hero .lead{font-size:18px;line-height:26px;white-space:normal}
+  .hero .cta{flex-wrap:wrap;gap:16px}
+  .hero .cta .btn{padding:9px 20px}
+  .offers{flex-wrap:wrap;gap:16px 32px}
+  .offers .chev{width:14px;height:5px}
+  .stack{position:relative!important;left:auto;top:auto;width:82%;margin:8px 0 22%}
+  .stack{order:5}
+  .v2 .stack2{position:relative!important;left:auto;top:auto;width:calc(100% - 12px);margin:8px 0 12% 12px;order:5}
+  .vtog{top:10px;left:auto;right:16px;transform:none}
+  .hero-bottom{order:6;display:flex;flex-wrap:wrap;gap:8px 32px;align-items:baseline;padding-bottom:48px}
+  .trusted{position:static;font-size:16px;line-height:22px;white-space:normal;width:100%}
+  .tn{position:static;font-size:20px;line-height:24px}
+  .cards{grid-template-columns:1fr;row-gap:56px;padding-inline:0}
+  .card p{max-width:none}
+  .stage-pin{height:auto;margin-top:clamp(56px,6vw,88px)}
+  .stage{position:relative;top:auto;height:auto;margin:0 auto;aspect-ratio:auto;min-height:560px;width:calc(100% - 32px);background-position:38% 50%;display:flex;flex-direction:column;justify-content:space-between;padding:28px 20px 28px}
+  .stage h2,.stage .sub{position:static}
+  .stage h2{font-size:clamp(28px,8vw,40px);max-width:none}
+  .stage .sub{font-size:16px;margin-top:12px}
+  .stage .top{position:static}
+  .rail{position:static;transform:none;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+  .rail span,.rail img{position:static;transform:none;font-size:11px}
+  .rail img{height:28px;margin-left:auto}
+  .mosaic{grid-template-columns:repeat(2,1fr);gap:24px 16px;padding-inline:0}
+  .fc{height:auto;min-height:100vh;min-height:100svh;container-type:inline-size;display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:28px 16px 32px}
+  .fc>*{position:static}
+  .fw{width:100%}
+  .est{font-size:40px}
+  .roman{align-self:flex-end;font-size:40px}
+  .scatter{display:flex;gap:10px;flex-wrap:wrap}.scatter span{position:static}
+  .legal{align-self:flex-end}
+}
+@media (max-width:520px){.mosaic .mk .mono{font-size:11px}}
+
+/* ============ viewfinder motion ============ */
+:root{--e:cubic-bezier(.2,.7,.2,1)}
+@keyframes drift{from{transform:scale(1.03) translate(0,0)}to{transform:scale(1.1) translate(-1.6%,-1%)}}
+@keyframes grain{0%{background-position:0 0}25%{background-position:-37px 21px}50%{background-position:19px -33px}75%{background-position:-22px -14px}100%{background-position:31px 27px}}
+
+/* persistent viewfinder frame, fixed to the browser window */
+.viewfinder{position:fixed;inset:0;z-index:65;pointer-events:none;mix-blend-mode:difference;opacity:.38}
+.vf-brk{position:absolute;width:58px;height:58px;border:0 solid #8a8a8a}
+.vf-brk.tl{left:var(--vx0,18px);top:var(--vy0,18px);border-top-width:1px;border-left-width:1px}
+.vf-brk.tr{left:calc(var(--vx1,100%) - 57px);top:var(--vy0,18px);border-top-width:1px;border-right-width:1px}
+.vf-brk.bl{left:var(--vx0,18px);top:calc(var(--vyb,100%) - 57px);border-bottom-width:1px;border-left-width:1px}
+.vf-brk.br{left:calc(var(--vx1,100%) - 57px);top:calc(var(--vyb,100%) - 57px);border-bottom-width:1px;border-right-width:1px}
+.vf-ticks{position:absolute;left:var(--vx0,18px);top:var(--vt0,28%);height:calc(var(--vt1,72%) - var(--vt0,28%) + 1px);width:14px}
+.vf-ticks::before,.vf-ticks::after{content:"";position:absolute;left:0;top:0;bottom:0}
+.vf-ticks::before,.vf-ticks::after{background-size:100% 57px;background-position:0 var(--tko,0px)}
+.vf-ticks::before{width:8px;background-image:linear-gradient(to bottom,#8a8a8a 0 1px,transparent 1px 11.4px,#8a8a8a 11.4px 12.4px,transparent 12.4px 22.8px,#8a8a8a 22.8px 23.8px,transparent 23.8px 34.2px,#8a8a8a 34.2px 35.2px,transparent 35.2px 45.6px,#8a8a8a 45.6px 46.6px,transparent 46.6px)}
+.vf-ticks::after{width:14px;background-image:linear-gradient(to bottom,#8a8a8a 0 1px,transparent 1px)}
+@media (max-width:900px){.viewfinder{display:none}}
+
+/* section rail: once the top bar scrolls away, the nav lives beside the ruler (motion driven from JS) */
+.rail-nav{position:fixed;left:18px;top:28%;bottom:28%;width:44px;z-index:66;display:none}
+.docked .rail-nav{display:block}
+.rail-nav.open{width:280px}
+.rail-nav a{position:absolute;left:30px;top:calc(12.5% + var(--i)*25%);font:500 15px/1.33 var(--font-sans);color:var(--ink);text-decoration:none;white-space:nowrap;opacity:0;transition:color .35s var(--e)}
+.rail-nav a.on-dark{color:var(--orange)}
+.rail-nav a:focus-visible{outline-offset:4px}
+@media (max-width:900px){.rail-nav{display:none}}
+
+.media::after,.stage::after{content:"";position:absolute;inset:0;background:var(--grain,none);background-size:128px 128px;opacity:.13;mix-blend-mode:overlay;pointer-events:none;z-index:1}
+.media.live::after,.stage.live::after{animation:grain .45s steps(1) infinite}
+.cap{z-index:2}
+
+/* hero */
+.gate{overflow:hidden}
+.gate .sw{transform-origin:40% 50%;animation:drift 24s ease-in-out infinite alternate}
+/* hero text settles into place on load, one line after another */
+@keyframes rise{from{opacity:0;translate:0 14px}}
+.hero h1,.hero .lead,.hero .cta,.offers,.hero-bottom>*{animation:rise .9s var(--e) backwards}
+.hero h1{animation-delay:.1s}.hero .lead{animation-delay:.22s}.hero .cta{animation-delay:.34s}.offers{animation-delay:.46s}.hero-bottom>*{animation-delay:.6s}
+
+/* stage */
+.stage{background:#3d3a22}
+.stage .bg{position:absolute;inset:-4%;background:url(img/stage.jpg) center/cover no-repeat;animation:drift 28s ease-in-out infinite alternate;will-change:transform}
+.stage .top,.stage .rail{z-index:2}
+@media (max-width:900px){.stage .bg{background-position:38% 50%}}
+.rail span{opacity:.6;font-weight:400;transition:opacity .35s var(--e)}
+.rail span.on{opacity:1;font-weight:700}
+.rail .ph{position:absolute;left:5.1%;top:-1.9cqw;width:1.1cqw;height:.45cqw;margin-left:.3cqw;background:var(--orange);clip-path:polygon(0 0,100% 50%,0 100%);transform:rotate(90deg);transition:left .7s var(--e)}
+
+/* stories heading fades up when it scrolls into view */
+.stories h2.arm,.work-head.arm{opacity:0;transform:translateY(18px)}
+.stories h2.arm.go,.work-head.arm.go{opacity:1;transform:none;transition:opacity 1.2s var(--e),transform 1.2s var(--e)}
+
+/* contact sheet */
+.mosaic{position:relative}
+.mosaic .media img,.cards .media img{transition:filter .9s var(--e) var(--d,0s),transform 1.1s var(--e) var(--d,0s)}
+.mosaic.arm .media img{filter:brightness(2.3) contrast(.45) saturate(0);transform:scale(1.07)}
+.mosaic.arm.go .media img{filter:none;transform:none}
+.cards.arm .media img{filter:blur(9px) brightness(1.12);transform:scale(1.05)}
+.cards.arm.go .media img{filter:none;transform:none}
+.cards .card:nth-child(2) .media img{--d:.12s}.cards .card:nth-child(3) .media img{--d:.24s}
+@media (hover:hover){
+  /* dimmed photos sink into the olive behind them (.media is olive), so the grid stays in palette */
+  .mosaic .media img{transition:opacity .3s var(--e),filter .9s var(--e) var(--d,0s),transform 1.1s var(--e) var(--d,0s)}
+  .mosaic .mk{transition:opacity .3s var(--e)}
+  .mosaic:has(.media:hover) .frame:not(:has(.media:hover)) .media img{opacity:.35}
+  .mosaic:has(.media:hover) .frame:not(:has(.media:hover)) .mk{opacity:.55}
+}
+
+@media (max-width:900px){.rail .ph{display:none}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important}
+  .mosaic.arm .media img,.cards.arm .media img{filter:none;transform:none}
+}
+</style>
+<script>if(/[?&]v=2(&|$)/.test(location.search))document.documentElement.classList.add('v2')</script>
+<div class="intro-screen" aria-hidden="true">
+  <svg class="intro-mark" viewBox="0 0 2400 734">
+    <defs><filter id="intro-ink" x="-10%" y="-30%" width="120%" height="190%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="29" result="b"/>
+      <feOffset in="b" dy="0" result="o"/>
+      <feColorMatrix in="o" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 200 -199.5" result="g"/>
+      <feFlood flood-color="#381105"/>
+      <feComposite in2="g" operator="in"/>
+    </filter></defs>
+    <image href="img/wordmark-ink.png" width="2400" height="734" filter="url(#intro-ink)"/>
+  </svg>
+</div>
+<script>
+/* Intro, about 3s. Same ink technique as the Kindling reference: the mark's alpha is blurred, then a hard
+   threshold sweeps down so it arrives as broken cores, bleeds fat, and resolves to the crisp artwork
+   (f = 0 makes the filter a no-op). Then it runs back up with a downward drag so the mark melts into
+   the orange, and the orange lifts off the page. Skipped for reduced motion and when switching v.1/v.2. */
+(function(){
+  var de=document.documentElement, skip=false;
+  try{ skip=sessionStorage.getItem('kindling-skip-intro')==='1'; sessionStorage.removeItem('kindling-skip-intro') }catch(e){}
+  if(skip || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  de.classList.add('intro','intro-hold');
+  var scr=document.querySelector('.intro-screen'), f=scr.querySelector('filter');
+  var blur=f.querySelector('feGaussianBlur'), off=f.querySelector('feOffset'), mat=f.querySelector('feColorMatrix');
+  var BLUR=2400*.012, SLOPE=200, T_FAT=.21, INK=1500, MELT=850, LIFT=2250, END=2950;
+  var c01=function(p){return p<0?0:p>1?1:p}, outC=function(p){return 1-Math.pow(1-p,3)}, inC=function(p){return p*p*p};
+  var smooth=function(p){return p*p*p*(p*(p*6-15)+10)};
+  var M=function(t,k){var sl=1+(SLOPE-1)*k, of=(.5-SLOPE*t)*k; return '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 '+sl+' '+of};
+  var last='';
+  function set(sx,sy,dy,m){ var key=sx.toFixed(1)+sy.toFixed(1)+dy.toFixed(1)+m; if(key===last) return; last=key;
+    blur.setAttribute('stdDeviation',sx.toFixed(1)+' '+sy.toFixed(1)); off.setAttribute('dy',dy.toFixed(1)); mat.setAttribute('values',m) }
+  var t0=0, lifted=false;
+  function frame(now){
+    if(!t0) t0=now; var ms=now-t0;
+    if(ms<INK){                                   // ink in: threshold sweep overlaps the blur resolving
+      var p=ms/INK, t=1+(T_FAT-1)*outC(c01(p/.7)), k=1-smooth(c01((p-.3)/.7));
+      set(BLUR*k,BLUR*k,0,M(t,k));
+    } else {                                      // melt: bleed and drag down while the threshold climbs away
+      var q=c01((ms-INK)/MELT), e=inC(q), k2=smooth(c01(q*2.2)), t2=T_FAT+(1.05-T_FAT)*e;
+      set(BLUR*k2*(1+e),BLUR*k2*(1+5*e),734*.22*e,M(t2,k2));
+    }
+    if(ms>=LIFT && !lifted){ lifted=true; scr.classList.add('out'); de.classList.remove('intro-hold') }
+    if(ms<END) requestAnimationFrame(frame);
+    else { de.classList.remove('intro'); scr.remove(); dispatchEvent(new Event('resize')) }
+  }
+  var started=false; function go(){ if(started) return; started=true; requestAnimationFrame(frame) }
+  var img=new Image(); img.onload=img.onerror=go; img.src='img/wordmark-ink.png';
+  setTimeout(go,900);   // never wait long on a slow network
+})();
+</script>
+<nav class="vtog" aria-label="Page version"><a href="?v=1">V.1</a><span aria-hidden="true">/</span><a href="?v=2">V.2</a></nav>
+<script>(function(){var v2=document.documentElement.classList.contains('v2'),a=document.querySelectorAll('.vtog a');a[v2?1:0].setAttribute('aria-current','page');[].forEach.call(a,function(l){l.addEventListener('click',function(){try{sessionStorage.setItem('kindling-skip-intro','1')}catch(e){}})})})()</script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="chev" viewBox="0 0 26 10"><polygon points="0,0 26,5 0,10"/></symbol></svg>
+<div class="viewfinder" aria-hidden="true">
+  <i class="vf-brk tl"></i><i class="vf-brk tr"></i><i class="vf-brk bl"></i><i class="vf-brk br"></i>
+  <span class="vf-ticks"></span>
+</div>
+<nav class="rail-nav" aria-label="Sections">
+  <a href="#model" style="--i:0">The Model</a>
+  <a href="#work" style="--i:1">The Work</a>
+  <a href="#who" style="--i:2">The Who</a>
+  <a href="#login" style="--i:3">Log in</a>
+</nav>
+<div class="page">
+
+<header class="hero" id="top">
+  <div class="canvas">
+    <nav class="nav-links" aria-label="Primary"><a class="link" href="#model">The Model</a><a class="link" href="#work">The Work</a><a class="link" href="#who">The Who</a></nav>
+    <a class="brand" href="#top" aria-label="Kindling home"><img src="img/logo-ink.png" alt="Kindling"></a>
+    <div class="nav-end"><a class="link" href="#login">Log in</a><a class="btn btn-primary" href="#talk">Talk to Us</a></div>
+
+    <div class="stack">
+      <div class="gate"><img class="sw" src="img/swallows.jpg" alt="Swallows in flight against a peach evening sky, overlaid with a grid"></div>
+      <figure class="frame desk"><div class="media" data-label="Story 014"><img src="img/desk.jpg" alt="A person in a green sweater draws at a desk beside a bright window"><figcaption class="cap"><span>KINDLING / STORY 014</span><span data-tc="00:03:42:18">00:03:42:18</span><span>FOUNDER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div></figure>
+    </div>
+    <div class="stack2">
+      <img class="cs" src="img/hero-contact.jpg" alt="">
+      <img class="pool" src="img/hero-pool.jpg" alt="Seen through a film camera’s viewfinder, a swimmer whips wet hair back in a spray of water under palm trees">
+    </div>
+
+    <h1>You build your<br>company.<br>We’ll <em class="acc">tell your story</em></h1>
+    <p class="lead">Kindling uncovers the story at the heart of your company.</p>
+    <div class="cta"><a class="btn btn-primary" href="#talk">Talk to Us</a><a class="btn btn-outline" href="#model">The Kindling Model</a></div>
+    <ul class="offers"><li><svg class="chev"><use href="#chev"/></svg>Storytelling</li><li><svg class="chev"><use href="#chev"/></svg>Content</li><li><svg class="chev"><use href="#chev"/></svg>Targeted Ads</li></ul>
+
+    <div class="hero-bottom">
+      <span class="trusted">Trusted by builders at</span>
+      <span class="tn" style="left:24.8%">Meridian</span><span class="tn" style="left:36.1%">Northbound</span><span class="tn" style="left:48.9%">Consolat</span><span class="tn" style="left:60.3%">Lyre Labs</span><span class="tn" style="left:73.2%">Stad &amp; Co</span><span class="tn" style="left:84.4%">Ferrous</span>
+    </div>
+  </div>
+</header>
+
+<section class="stories" id="model">
+  <div class="wrap">
+    <h2>Organic marketing<br class="d"> matters. Few know<br class="d"> <span class="acc">what to do next</span>.</h2>
+    <div class="cards">
+<article class="card">
+<figure class="frame">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">01</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 014"><img src="img/card-fruit.jpg" alt="A hand picks mangoes from a market stall" ><figcaption class="cap"><span>KINDLING / STORY 014</span><span data-tc="00:03:42:18">00:03:42:18</span><span>FOUNDER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<h3>Pick your angle</h3>
+<p>Put the right story in front of the right people. We turn strategy into focused campaigns designed to reach, resonate, and drive action.</p>
+<a class="btn btn-ink" href="#talk">Explore Campaigns</a>
+</article>
+<article class="card">
+<figure class="frame">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">02</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 014"><img src="img/card-red.jpg" alt="A figure in an orange hooded suit walks through a field at sunset" ><figcaption class="cap"><span>KINDLING / STORY 014</span><span data-tc="00:03:42:18">00:03:42:18</span><span>FOUNDER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<h3>Create content</h3>
+<p>Bring your story to life in motion. From founder stories to social content, we create videos that make complex ideas clear, human, and memorable.</p>
+<a class="btn btn-ink" href="#talk">Watch the Story</a>
+</article>
+<article class="card">
+<figure class="frame">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">03</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 014"><img src="img/card-table.jpg" alt="A person in linen sits at a wooden table with a cup" ><figcaption class="cap"><span>KINDLING / STORY 014</span><span data-tc="00:03:42:18">00:03:42:18</span><span>FOUNDER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<h3>Refine GTM</h3>
+<p>Learn what lands. Feed what works. We capture audience signals, sharpen the message, and turn every response into a stronger next move.</p>
+<a class="btn btn-ink" href="#talk">Keep Learning</a>
+</article>
+    </div>
+  </div>
+</section>
+
+<div class="stage-pin">
+<section class="stage" aria-label="How Kindling works">
+  <div class="bg"></div>
+  <div class="top"><h2>Get personalized content suggestions</h2>
+  <p class="sub">Kindling uncovers the story at the heart of your company.</p></div>
+  <div class="rail">
+    <span style="left:5.1%">Ideation</span><span style="left:22%">Plan</span><span style="left:37.1%">Execute</span><span style="left:53.5%">Craft story</span><span style="left:71.6%">Results</span>
+    <img src="img/logo-cream.png" alt="Kindling">
+    <i class="ph" aria-hidden="true"></i>
+  </div>
+</section>
+</div>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <header class="work-head">
+      <h2>Stories we’ve <span class="acc">brought to light</span>.</h2>
+      <p class="lead">A few frames from the founders, teams and customers we’ve filmed, each one a story worth caring about.</p>
+    </header>
+    <div class="mosaic">
+<figure class="frame cut" style="--d:0.1s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">01</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 001"><img src="img/grid-dog.jpg" alt="A man in a yellow cap walks through a concrete garage with a whippet" ><figcaption class="cap"><span>KINDLING / STORY 001</span><span data-tc="00:01:12:04">00:01:12:04</span><span>FOUNDER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:0.17s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">02</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 002"><img src="img/grid-car.jpg" alt="A copper vintage sedan parked beside a stone curb" ><figcaption class="cap"><span>KINDLING / STORY 002</span><span data-tc="00:02:08:19">00:02:08:19</span><span>PRODUCT POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:0.24s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">03</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 003"><img src="img/piano.jpg" alt="A red-haired man plays a piano in a lamplit room" ><figcaption class="cap"><span>KINDLING / STORY 003</span><span data-tc="00:04:31:07">00:04:31:07</span><span>FOUNDER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:0.31s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">04</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 004"><img src="img/grid-laptop.jpg" alt="A man in a dark jumpsuit types on a laptop at a steel workbench" ><figcaption class="cap"><span>KINDLING / STORY 004</span><span data-tc="00:00:57:22">00:00:57:22</span><span>TEAM POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:0.6s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">05</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 005"><img src="img/desk.jpg" alt="A person in a green sweater draws at a desk by a window" ><figcaption class="cap"><span>KINDLING / STORY 005</span><span data-tc="00:03:15:10">00:03:15:10</span><span>FOUNDER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:0.67s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">06</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 006"><img src="img/grid-splash.jpg" alt="A swimmer dives into the sea in a burst of spray" ><figcaption class="cap"><span>KINDLING / STORY 006</span><span data-tc="00:05:02:14">00:05:02:14</span><span>CUSTOMER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:0.74s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">07</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 007"><img src="img/grid-platform.jpg" alt="A long shadow falls across a train platform edge" ><figcaption class="cap"><span>KINDLING / STORY 007</span><span data-tc="00:01:44:29">00:01:44:29</span><span>TEAM POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:0.81s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">08</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 008"><img src="img/grid-boat.jpg" alt="An older man in a yellow sweater leans over the side of a boat" ><figcaption class="cap"><span>KINDLING / STORY 008</span><span data-tc="00:02:51:03">00:02:51:03</span><span>FOUNDER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:1.1s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">09</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 009"><img src="img/grid-flower.jpg" alt="A woman smells a dried flower against a blue sky" ><figcaption class="cap"><span>KINDLING / STORY 009</span><span data-tc="00:06:20:16">00:06:20:16</span><span>CUSTOMER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:1.17s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">10</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 010"><img src="img/grid-striped.jpg" alt="A person in a striped sweater reaches toward red flowers" ><figcaption class="cap"><span>KINDLING / STORY 010</span><span data-tc="00:03:09:25">00:03:09:25</span><span>FOUNDER POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:1.24s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">11</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 011"><img src="img/grid-daisy.jpg" alt="A pale daisy in soft focus among orange blooms" ><figcaption class="cap"><span>KINDLING / STORY 011</span><span data-tc="00:00:33:11">00:00:33:11</span><span>PRODUCT POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+<figure class="frame cut" style="--d:1.31s">
+  <div class="mk" aria-hidden="true"><svg class="chev"><use href="#chev"/></svg><span class="mono">12</span><span class="sp"></span><svg class="chev"><use href="#chev"/></svg></div>
+  <div class="media" data-label="Story 012"><img src="img/card-table.jpg" alt="A person in linen sits at a wooden table" ><figcaption class="cap"><span>KINDLING / STORY 012</span><span data-tc="00:04:47:01">00:04:47:01</span><span>TEAM POV</span><span>RECORDED / BROOKLYN NY</span></figcaption></div>
+</figure>
+    </div>
+  </div>
+</section>
+
+<section class="closing" id="who">
+  <div class="in">
+    <h2 id="talk">Every founder has a story worth <span class="acc">telling well</span>.</h2>
+    <p>Tell us where your company is headed and we’ll find the story that gets it there.</p>
+    <div class="cta"><a class="btn btn-primary" href="mailto:hello@kindling.example">Talk to Us</a><a class="btn btn-outline" href="#model">The Kindling Model</a></div>
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="fc">
+    <img class="fw" src="img/wordmark-ink.png" alt="Kindling">
+    <p class="est">EST.<br>2026</p>
+    <p class="roman" aria-hidden="true">MMXXI</p>
+    <p class="scatter" aria-label="We tell your story"><span style="left:68.7%;top:calc(3.95*var(--u))">We</span><span style="left:79.8%;top:calc(7.83*var(--u))">Tell</span><span style="left:69.4%;top:calc(13.06*var(--u))">Your</span><span style="left:80.5%;top:calc(15.29*var(--u))">Story</span></p>
+    <nav class="fnav" aria-label="Footer">
+      <p class="fh">Features</p>
+      <a href="#">Pricing</a><a href="#">Enterprise</a><a href="#">Integrations</a><a href="#">For Sales</a>
+      <div class="social">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zM7 10v7h2.4v-7zm1.2-3.6a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8M11 10v7h2.4v-3.7c0-1 .3-1.6 1.2-1.6s1.1.7 1.1 1.7V17h2.4v-4.3c0-2-1-2.9-2.6-2.9-1 0-1.7.5-2.1 1.1V10z" fill-rule="evenodd"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M2.5 7.2C2.7 5.8 3.8 5 5.2 4.9 7.4 4.7 9.7 4.6 12 4.6s4.6.1 6.8.3c1.4.1 2.5.9 2.7 2.3.2 1.6.3 3.2.3 4.8s-.1 3.2-.3 4.8c-.2 1.4-1.3 2.2-2.7 2.3-2.2.2-4.5.3-6.8.3s-4.6-.1-6.8-.3c-1.4-.1-2.5-.9-2.7-2.3C2.3 15.2 2.2 13.6 2.2 12s.1-3.2.3-4.8M10 8.8v6.4l5.5-3.2z" fill-rule="evenodd"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M3.2 3h5.3l4.2 5.9L17.8 3h2.3l-6.3 7.3L21 21h-5.3l-4.6-6.4L5.6 21H3.3l6.8-7.8zm3.1 1.7 10.3 14.6h1.7L8 4.7z"/></svg></a>
+      </div>
+    </nav>
+    <p class="legal">All rights reserved<br>Copyright 2026</p>
+  </div>
+</footer>
+
+</div>
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s,r){return (r||document).querySelector(s)}, $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var pad = function(n,l){n=String(n);while(n.length<l)n='0'+n;return n};
+
+  /* film grain tile, generated once */
+  try{
+    var c=document.createElement('canvas'); c.width=c.height=128; var g=c.getContext('2d'), d=g.createImageData(128,128);
+    for(var i=0;i<d.data.length;i+=4){var v=Math.random()*255; d.data[i]=d.data[i+1]=d.data[i+2]=v; d.data[i+3]=255}
+    g.putImageData(d,0,0); document.documentElement.style.setProperty('--grain','url('+c.toDataURL()+')');
+  }catch(e){}
+  /* stage: scrolling walks the playhead through the process labels while the section is pinned */
+  var rail=$('.rail'), spans=rail?$$('span',rail):[], ph=rail?$('.ph',rail):null, pin=$('.stage-pin'), stageEl=$('.stage'), cur=-1;
+  function stageStep(){
+    if(!rail||!pin) return;
+    var pr=pin.getBoundingClientRect(), sh=stageEl.offsetHeight, run=pr.height-sh, p;
+    if(run>40) p=-pr.top/run;                                    // pinned: progress through the pin
+    else { var r=stageEl.getBoundingClientRect(); p=(innerHeight*.75-r.top)/(r.height||1) } // small screens: no pin
+    var k=Math.max(0,Math.min(spans.length-1,Math.floor(Math.max(0,p)*spans.length)));
+    if(k===cur) return; cur=k;
+    spans.forEach(function(x,i){x.classList.toggle('on',i===k)});
+    if(ph) ph.style.left=spans[k].style.left;
+  }
+  addEventListener('scroll',stageStep,{passive:true}); addEventListener('resize',stageStep); stageStep();
+  if(reduce) return;
+
+  /* only animate what is on screen */
+  var vis = new Set();
+  var io = new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){vis.add(e.target); if(e.target.classList) e.target.classList.add('live')}
+    else{vis.delete(e.target); if(e.target.classList) e.target.classList.remove('live')}
+  })},{rootMargin:'80px'});
+  $$('.media,.stage').forEach(function(el){io.observe(el)});
+  var tcs = $$('[data-tc]').map(function(el){var p=el.getAttribute('data-tc').split(':').map(Number); return {el:el,base:((p[0]*60+p[1])*60+p[2])*24+p[3],last:-1}});
+  var tcVis = new Set();
+  var tio = new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?tcVis.add(e.target):tcVis.delete(e.target)})});
+  tcs.forEach(function(t){tio.observe(t.el)});
+  var fmt = function(f){var ff=f%24,s=Math.floor(f/24),ss=s%60,m=Math.floor(s/60),mm=m%60,h=Math.floor(m/60);return pad(h,2)+':'+pad(mm,2)+':'+pad(ss,2)+':'+pad(ff,2)};
+
+  /* arm the reveals only when they start below the fold */
+  function arm(el){ if(!el) return; if(el.getBoundingClientRect().top > innerHeight*0.92){ el.classList.add('arm'); var o=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ el.classList.add('go'); o.disconnect() } },{threshold:.12}); o.observe(el) } else { el.classList.add('go') } }
+  arm($('.stories h2')); arm($('.work-head')); arm($('.mosaic')); arm($('.cards'));
+
+
+
+  var t0=performance.now(), lastTc=0;
+  function loop(now){
+    if(now-lastTc>41){ lastTc=now; var fr=Math.floor((now-t0)/41.667);
+      tcs.forEach(function(t){ if(!tcVis.has(t.el)) return; var f=t.base+fr; if(f!==t.last){t.last=f;t.el.textContent=fmt(f)} }) }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+
+<script>
+/* grid lights up around the cursor; hero nav docks beside the side ruler */
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var wide = matchMedia('(min-width: 901px)');
+  var body = document.body, page = document.querySelector('.page');
+  var rail = document.querySelector('.rail-nav');
+  var links = [].slice.call(rail.querySelectorAll('a'));
+  var N = links.length, BASE = 15;
+
+  /* 1. cursor-lit grid */
+  if(!reduce && matchMedia('(hover: hover)').matches){
+    var mx=0,my=0,queued=false;
+    addEventListener('pointermove',function(e){
+      mx=e.clientX; my=e.clientY;
+      if(queued) return; queued=true;
+      requestAnimationFrame(function(){
+        queued=false; var r=page.getBoundingClientRect();
+        page.style.setProperty('--mx',(mx-r.left)+'px'); page.style.setProperty('--my',(my-r.top)+'px');
+        page.classList.add('lit');
+      });
+    },{passive:true});
+    document.documentElement.addEventListener('pointerleave',function(){page.classList.remove('lit')});
+  }
+
+  /* 0. lay the viewfinder, ruler and side menu onto the grid lines */
+  var ROW=57, Y0=44, railStep=ROW, brand=document.querySelector('.hero .brand');
+  function layoutGrid(){
+    var de=document.documentElement, W=de.clientWidth, H=de.clientHeight;
+    var b=brand.getBoundingClientRect(); Y0=Math.max(8,Math.round(b.top+scrollY+b.height/2-ROW/2));
+    var gw=Math.round(W*.15), gx=Math.round((W-gw)*.05), x1=gx+6*gw;
+    var yb=Y0+ROW*Math.floor((H-Y0-30)/ROW);
+    var kT=Math.max(1,Math.round((H*.28-Y0)/ROW)), kB=Math.max(kT+4,Math.round((H*.72-Y0)/ROW));
+    var set=function(k,v){de.style.setProperty(k,v+'px')};
+    set('--gw',gw); set('--gx',gx); set('--gy',Y0); set('--vx0',gx); set('--vx1',x1); set('--vy0',Y0); set('--vyb',yb);
+    set('--vt0',Y0+ROW*kT); set('--vt1',Y0+ROW*kB);
+    var span=kB-kT, step=Math.max(1,Math.floor(span/4)), first=Math.floor((span-3*step)/2);
+    rail.style.left=gx+'px'; rail.style.top=(Y0+ROW*kT)+'px'; rail.style.bottom='auto'; rail.style.height=(ROW*span)+'px';
+    links.forEach(function(a,i){ a.style.top=(ROW*(first+i*step))+'px' });
+    railStep=step*ROW;
+  }
+  layoutGrid(); addEventListener('resize',layoutGrid);
+  var ticks=document.querySelector('.vf-ticks'), tq=false;
+  function slideTicks(){ tq=false; ticks.style.setProperty('--tko',(-(scrollY%ROW))+'px') }
+  addEventListener('scroll',function(){ if(!tq){ tq=true; requestAnimationFrame(slideTicks) } },{passive:true}); slideTicks();
+
+  /* 2. rail state: magnification m, opacity o */
+  var st = links.map(function(){return {m:1,o:0}});
+  var docked=false, open=false, py=-1e4, raf=0, last=0, lastTone=0;
+  var clamp=function(v,a,b){return v<a?a:v>b?b:v};
+
+  function rest(i){ var r=rail.getBoundingClientRect(), a=links[i]; return {x:r.left+a.offsetLeft, y:r.top+a.offsetTop} }
+  function setDocked(on){
+    docked=on; body.classList.toggle('docked',on);
+    if(!on){ open=false; rail.classList.remove('open'); st.forEach(function(p){p.m=1;p.o=0}); links.forEach(function(a){a.style.opacity=0}) }
+    else kick();
+  }
+
+  /* is the page behind a point dark? (photos are sampled, flat fills use their colour) */
+  var cache = new WeakMap(), cv = document.createElement('canvas'); cv.width=cv.height=40; var cx = cv.getContext('2d',{willReadFrequently:true});
+  function imgLum(img,x,y){
+    if(!img.complete||!img.naturalWidth) return null;
+    var d=cache.get(img);
+    if(!d||d.src!==img.currentSrc){ try{ cx.clearRect(0,0,40,40); cx.drawImage(img,0,0,40,40); d={src:img.currentSrc,px:cx.getImageData(0,0,40,40).data}; cache.set(img,d) }catch(e){ return null } }
+    var r=img.getBoundingClientRect(), nw=img.naturalWidth, nh=img.naturalHeight, sc=Math.max(r.width/nw,r.height/nh);
+    var u=(x-r.left-(r.width-nw*sc)/2)/(nw*sc), v=(y-r.top-(r.height-nh*sc)/2)/(nh*sc);
+    var k=(clamp(Math.floor(v*40),0,39)*40+clamp(Math.floor(u*40),0,39))*4;
+    return (.2126*d.px[k]+.7152*d.px[k+1]+.0722*d.px[k+2])/255;
+  }
+  function lumAt(x,y){
+    var els=document.elementsFromPoint(x,y);
+    for(var j=0;j<els.length;j++){
+      var el=els[j];
+      if(rail.contains(el)||el.closest('.viewfinder')) continue;
+      if(el.tagName==='IMG'){ var l=imgLum(el,x,y); if(l!=null) return l; continue }
+      var m=getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+      if(m&&(m.length<4||+m[3]>.5)) return (.2126*m[0]+.7152*m[1]+.0722*m[2])/255;
+    }
+    return 1;
+  }
+  function tone(now){
+    if(now-lastTone<100) return; lastTone=now;
+    links.forEach(function(a,i){
+      if(st[i].o<.02) return;
+      var r=a.getBoundingClientRect(), y=r.top+r.height/2;
+      // any stretch of the word over something dark switches it, so it never half-disappears
+      var l=1; for(var q=.08;q<1;q+=.21) l=Math.min(l,lumAt(r.left+r.width*q,y));
+      a.classList.toggle('on-dark',l<.42);
+    });
+  }
+
+  function frame(now){
+    raf=0; var dt=Math.min(64,now-(last||now)); last=now;
+    var k = reduce ? 1 : 1-Math.exp(-dt/85);
+    if(docked){
+      var show = open || rail.contains(document.activeElement);
+      var sig = railStep*.5;
+      for(var i=0;i<N;i++){
+        var target=1;
+        if(open){ var d=py-rest(i).y; target = 1 + .85*Math.exp(-(d*d)/(2*sig*sig)) }
+        st[i].m += (target-st[i].m)*k;
+        st[i].o += ((show?1:0)-st[i].o)*k;
+      }
+    }
+    for(var i=0;i<N;i++){
+      var p=st[i];
+      links[i].style.transform='translate('+((p.m-1)*16)+'px,-50%)';
+      links[i].style.fontSize=(BASE*p.m).toFixed(2)+'px';
+      links[i].style.opacity=p.o;
+    }
+    tone(now);
+    if(docked) kick();
+  }
+  function kick(){ if(!raf) raf=requestAnimationFrame(frame) }
+
+  function check(){
+    var want = wide.matches && scrollY>40;
+    if(want!==docked) setDocked(want);
+  }
+  addEventListener('scroll',check,{passive:true}); wide.addEventListener('change',check); check();
+
+  /* 3. cursor over the ruler: the nearest item swells, the rest stay small */
+  rail.addEventListener('pointerenter',function(e){ open=true; py=e.clientY; rail.classList.add('open'); kick() });
+  rail.addEventListener('pointermove',function(e){ py=e.clientY });
+  rail.addEventListener('pointerleave',function(){ open=false; rail.classList.remove('open') });
+  links.forEach(function(a,i){ a.addEventListener('focus',function(){ open=true; py=rest(i).y; kick() }) });
+  rail.addEventListener('focusout',function(e){ if(!rail.contains(e.relatedTarget)) open=false });
+})();
+</script>
+</body></html>

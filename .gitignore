@@ -1,0 +1,5 @@
+.DS_Store
+# local backups of the old low-res photos
+_old-img/
+# local editor/preview settings
+.claude/

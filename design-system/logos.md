@@ -1,0 +1,3 @@
+# Logos
+
+The Kindling wordmark and K monogram as supplied, each as a transparent PNG in single-ink `ink` (#381105) with a `-cream` reversed copy in the brand white (#FFF5E5) for dark grounds. Raster images show through `<img>` only and cannot inherit text colour, so choose the file by ground: `kindling-wordmark.png` and `kindling-monogram.png` on `paper`, `cream` and light photography; `kindling-wordmark-cream.png` and `kindling-monogram-cream.png` on `ink`, `orange` and dark photography. The wordmark is 6126px wide, the monogram 1376px wide by 1577 tall. Use the monogram when the wordmark would be under 24px tall. Clear space is one K-height. Never recolour, retype, stretch or add effects.
