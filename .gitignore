@@ -3,3 +3,4 @@
 _old-img/
 # local editor/preview settings
 .claude/
+.vercel
