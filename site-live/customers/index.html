@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" href="/_astro/syne-latin-wght-normal.BVsvWWA4.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="/_astro/instrument-sans-latin-wght-normal.BbzFLZTg.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="/_astro/texturina-latin-400-italic.DlX822Mc.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="/_astro/texturina-latin-500-italic.Bom9S7_e.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="/brand/kindling-wordmark-brown.svg?v=2b0a10" as="image" type="image/svg+xml"><title>Customers | Kindling</title><meta name="description" content="See Kindling’s work with Lorikeet, A1Base and KC Ventures, and hear from our customers."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://landing-infinite-fun.vercel.app/customers"><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32"><link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"><link rel="sitemap" href="/sitemap.xml" type="application/xml"><meta name="theme-color" content="#FAFAFA"><meta property="og:type" content="website"><meta property="og:site_name" content="Kindling"><meta property="og:title" content="Customers | Kindling"><meta property="og:description" content="See Kindling’s work with Lorikeet, A1Base and KC Ventures, and hear from our customers."><meta property="og:url" content="https://landing-infinite-fun.vercel.app/customers"><meta property="og:image" content="https://landing-infinite-fun.vercel.app/social-preview-wordmark.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Kindling in dark brown, centred on off-white within four corner brackets."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://landing-infinite-fun.vercel.app/social-preview-wordmark.png"><meta name="twitter:image:alt" content="Kindling in dark brown, centred on off-white within four corner brackets."><meta name="twitter:title" content="Customers | Kindling"><meta name="twitter:description" content="See Kindling’s work with Lorikeet, A1Base and KC Ventures, and hear from our customers."><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://landing-infinite-fun.vercel.app/#organization","name":"Kindling","legalName":"Kindling Tech Pty Ltd","url":"https://landing-infinite-fun.vercel.app","logo":"https://landing-infinite-fun.vercel.app/brand/kindling-wordmark-brown.svg"},{"@type":"WebSite","@id":"https://landing-infinite-fun.vercel.app/#website","url":"https://landing-infinite-fun.vercel.app","name":"Kindling","publisher":{"@id":"https://landing-infinite-fun.vercel.app/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://landing-infinite-fun.vercel.app"},{"@type":"ListItem","position":2,"name":"Customers","item":"https://landing-infinite-fun.vercel.app/customers"}]}]}</script><link rel="stylesheet" href="/_astro/BaseLayout.Dw9DyV_e.css?v=2b0a10"><link rel="stylesheet" href="/_astro/_..DZGw0l0J.css?v=2b0a10"><link rel="stylesheet" href="/img/overrides.css?v=2"></head><body><dialog class="splash" data-kindling-splash aria-label="Loading Kindling" data-astro-cid-wx4ry4h2><svg class="intro-mark" viewBox="0 0 2400 734" aria-hidden="true" data-astro-cid-wx4ry4h2><defs data-astro-cid-wx4ry4h2><filter id="intro-ink" x="-10%" y="-30%" width="120%" height="190%" color-interpolation-filters="sRGB" data-astro-cid-wx4ry4h2><feGaussianBlur in="SourceAlpha" stdDeviation="29" result="b" data-astro-cid-wx4ry4h2></feGaussianBlur><feOffset in="b" dy="0" result="o" data-astro-cid-wx4ry4h2></feOffset><feColorMatrix in="o" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 200 -199.5" result="g" data-astro-cid-wx4ry4h2></feColorMatrix><feFlood flood-color="#2F0710" data-astro-cid-wx4ry4h2></feFlood><feComposite in2="g" operator="in" data-astro-cid-wx4ry4h2></feComposite></filter></defs><image href="/brand/kindling-wordmark-brown.svg?v=2b0a10" width="2400" height="734" filter="url(#intro-ink)" data-astro-cid-wx4ry4h2></image></svg></dialog><script data-splash-controller>
+  (() => {
+    const splash = document.querySelector('[data-kindling-splash]');
+    const root = document.documentElement;
+    const sessionKey = 'kindling:splash-seen:v1';
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    if (!splash || typeof splash.showModal !== 'function') return;
+    // No splash on subsequent routes, reloads or restored pages in this tab.
+    try { if (sessionStorage.getItem(sessionKey) === '1') return; } catch {}
+    if (reduced.matches) return;
+
+    let closed = false;
+    let started = false;
+    let animationFrame;
+    let startTimer;
+    const finish = () => {
+      if (closed) return;
+      closed = true;
+      clearTimeout(failsafe);
+      clearTimeout(startTimer);
+      cancelAnimationFrame(animationFrame);
+      root.removeAttribute('data-splash-active');
+      if (splash.open) splash.close();
+      reduced.removeEventListener('change', onMotionChange);
+      window.removeEventListener('pagehide', onPageHide);
+      document.removeEventListener('DOMContentLoaded', onReady);
+      try { sessionStorage.setItem(sessionKey, '1'); } catch {}
+    };
+    const onMotionChange = () => { if (reduced.matches) finish(); };
+    const onPageHide = () => finish();
+    // Original reference ink-in / melt / lift choreography, unchanged.
+    const blur = splash.querySelector('feGaussianBlur');
+    const offset = splash.querySelector('feOffset');
+    const matrix = splash.querySelector('feColorMatrix');
+    const BLUR = 2400 * .012, SLOPE = 200, T_FAT = .21;
+    const INK = 1500, MELT = 850, LIFT = 2250, END = 2950;
+    const clamp = p => p < 0 ? 0 : p > 1 ? 1 : p;
+    const outC = p => 1 - Math.pow(1 - p, 3);
+    const inC = p => p * p * p;
+    const smooth = p => p * p * p * (p * (p * 6 - 15) + 10);
+    const coefficients = (t, k) => '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ' + (1 + (SLOPE - 1) * k) + ' ' + ((.5 - SLOPE * t) * k);
+    let last = '';
+    const setInk = (sx, sy, dy, values) => {
+      const key = sx.toFixed(1) + sy.toFixed(1) + dy.toFixed(1) + values;
+      if (key === last) return;
+      last = key;
+      blur.setAttribute('stdDeviation', sx.toFixed(1) + ' ' + sy.toFixed(1));
+      offset.setAttribute('dy', dy.toFixed(1));
+      matrix.setAttribute('values', values);
+    };
+    let firstFrame;
+    const frame = now => {
+      if (closed) return;
+      firstFrame ??= now;
+      const ms = now - firstFrame;
+      if (ms < INK) {
+        const p = ms / INK, t = 1 + (T_FAT - 1) * outC(clamp(p / .7)), k = 1 - smooth(clamp((p - .3) / .7));
+        setInk(BLUR * k, BLUR * k, 0, coefficients(t, k));
+      } else {
+        const q = clamp((ms - INK) / MELT), e = inC(q), k = smooth(clamp(q * 2.2)), t = T_FAT + (1.05 - T_FAT) * e;
+        setInk(BLUR * k * (1 + e), BLUR * k * (1 + 5 * e), 734 * .22 * e, coefficients(t, k));
+      }
+      if (ms >= LIFT) splash.dataset.leaving = '';
+      if (ms < END) animationFrame = requestAnimationFrame(frame);
+      else finish();
+    };
+    const start = () => {
+      if (started || closed) return;
+      started = true;
+      clearTimeout(startTimer);
+      animationFrame = requestAnimationFrame(frame);
+    };
+    const onReady = async () => {
+      // Preload the vector wordmark inside the original animation coordinate system.
+      const logo = new Image();
+      logo.src = '/brand/kindling-wordmark-brown.svg';
+      await Promise.allSettled([logo.decode()]);
+      start();
+    };
+    // Keep the reference's 900ms artwork fallback, plus a hard modal failsafe.
+    const failsafe = setTimeout(finish, 4000);
+    startTimer = setTimeout(start, 900);
+    splash.addEventListener('cancel', event => { event.preventDefault(); finish(); });
+    window.addEventListener('pagehide', onPageHide);
+    reduced.addEventListener('change', onMotionChange);
+    try {
+      splash.showModal();
+      root.setAttribute('data-splash-active', '');
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady, {once: true});
+      else onReady();
+    } catch { finish(); }
+  })();
+</script><a href="#main" class="skip-link">Skip to content</a><div class="site-shell"><!-- Native sticky positioning owns scroll; CSS timelines own the frame morph. --><header class="frame-dock" data-astro-cid-nen7h5rs><nav class="frame-nav" data-frame-nav aria-label="Primary" data-astro-cid-nen7h5rs><i class="frame-corner top-left" aria-hidden="true" data-astro-cid-nen7h5rs></i><i class="frame-corner top-right" aria-hidden="true" data-astro-cid-nen7h5rs></i><i class="frame-corner bottom-left" aria-hidden="true" data-astro-cid-nen7h5rs></i><i class="frame-corner bottom-right" aria-hidden="true" data-astro-cid-nen7h5rs></i><div class="frame-links" data-astro-cid-nen7h5rs><a href="/network" data-astro-cid-nen7h5rs>Network</a><a href="/customers" aria-current="page" data-astro-cid-nen7h5rs>Customers</a><a href="/offerings" data-astro-cid-nen7h5rs>Offerings</a><a href="/who-we-are" data-astro-cid-nen7h5rs>Who We Are</a></div><a class="frame-home" href="/" aria-label="Kindling home" data-astro-cid-nen7h5rs><img src="/brand/kindling-wordmark-brown.svg?v=2b0a10" alt="Kindling" width="3343" height="1028" data-astro-cid-nen7h5rs></a><div class="frame-actions" data-astro-cid-nen7h5rs><a href="https://app.kindling.team" data-astro-cid-nen7h5rs>Log in</a><a class="frame-contact" href="https://kindling.typeform.com/enquire" data-astro-cid-nen7h5rs>Talk to Us</a></div><details class="compact-menu" data-compact-menu data-astro-cid-nen7h5rs><summary role="button" aria-label="Open menu" aria-controls="compact-navigation" data-astro-cid-nen7h5rs><span class="menu-symbol" aria-hidden="true" data-astro-cid-nen7h5rs><i data-astro-cid-nen7h5rs></i><i data-astro-cid-nen7h5rs></i></span></summary><div class="compact-panel" id="compact-navigation" data-astro-cid-nen7h5rs><div class="compact-links" data-astro-cid-nen7h5rs><a href="/network" data-astro-cid-nen7h5rs>Network</a><a href="/customers" aria-current="page" data-astro-cid-nen7h5rs>Customers</a><a href="/offerings" data-astro-cid-nen7h5rs>Offerings</a><a href="/who-we-are" data-astro-cid-nen7h5rs>Who We Are</a></div><div class="compact-actions" data-astro-cid-nen7h5rs><a href="https://app.kindling.team" data-astro-cid-nen7h5rs>Log in</a><a class="compact-contact" href="https://kindling.typeform.com/enquire" data-astro-cid-nen7h5rs>Talk to Us</a></div></div></details></nav></header><script data-nav-controller>
+  (() => {
+    const menu = document.querySelector('[data-compact-menu]');
+    if (!menu) return;
+    const toggle = menu.querySelector('summary');
+    const panel = menu.querySelector('.compact-panel');
+    const desktop = matchMedia('(min-width: 1201px)');
+    let expanded = menu.open;
+    let closing = 0;
+    const update = () => {
+      toggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+      toggle.setAttribute('aria-expanded', String(expanded));
+      panel.inert = !expanded;
+    };
+    menu.setAttribute('data-enhanced', '');
+    if (expanded) menu.setAttribute('data-open', '');
+    update();
+    const close = (restoreFocus = false, immediate = false) => {
+      if (!menu.open) return;
+      clearTimeout(closing);
+      expanded = false;
+      menu.removeAttribute('data-open');
+      update();
+      if (restoreFocus) toggle.focus({ preventScroll: true });
+      if (immediate) menu.open = false;
+      else closing = setTimeout(() => { if (!expanded) menu.open = false; }, 240);
+    };
+    toggle.addEventListener('click', event => {
+      event.preventDefault();
+      if (expanded) { close(); return; }
+      clearTimeout(closing);
+      menu.open = true;
+      // Establish the closed style once, then let CSS interpolate both directions.
+      panel.getBoundingClientRect();
+      expanded = true;
+      menu.setAttribute('data-open', '');
+      update();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && expanded) { event.preventDefault(); close(true); }
+    });
+    document.addEventListener('pointerdown', event => {
+      if (!menu.contains(event.target)) close();
+    });
+    document.addEventListener('focusin', event => {
+      if (!menu.contains(event.target)) close();
+    });
+    menu.addEventListener('click', event => {
+      if (event.target.closest('a')) close(false, true);
+    });
+    desktop.addEventListener('change', () => {
+      if (desktop.matches) {
+        const focused = menu.contains(document.activeElement);
+        close(false, true);
+        if (focused) document.querySelector('.frame-home').focus({ preventScroll: true });
+      }
+    });
+  })();
+</script><script data-nav-position-controller>
+  (() => {
+    const dock = document.querySelector('.frame-dock');
+    if (!dock) return;
+    let threshold = 0;
+    let floating = false;
+    const update = () => {
+      // Only the desktop landing frame participates in initial elastic overscroll.
+      const next = threshold === 0 || window.scrollY > threshold;
+      if (next === floating) return;
+      floating = next;
+      dock.toggleAttribute('data-floating', floating);
+    };
+    const measure = () => {
+      // CSS chooses the threshold: end of the frame morph, or zero for plain navs.
+      threshold = Math.max(0, parseFloat(getComputedStyle(dock, '::after').height) || 0);
+      update();
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', measure, { passive: true });
+    window.addEventListener('pageshow', measure);
+    matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', measure);
+    measure();
+  })();
+</script><main id="main" tabindex="-1"><div class="marketing-page"><section class="subpage-section subpage-hero" aria-labelledby="page-title"><div class="subpage-wrap split-layout"><div class="section-copy hero-introduction"><h1 id="page-title">Important work.<br><em>Worth knowing about.</em></h1><p class="lead">Meet the companies working with Kindling on founder content, company announcements and ongoing marketing.</p><a class="action-button button--primary" href="https://kindling.typeform.com/enquire" data-astro-cid-dyks4r25>Talk to Us</a></div><ul class="customer-logo-wall" aria-label="Companies we work with" data-astro-cid-bml4htvm><li data-astro-cid-bml4htvm><span role="img" aria-label="Bifrost" style="--logo:url(/logos/bifrost.png);--logo-scale:1" data-astro-cid-bml4htvm></span></li><li data-astro-cid-bml4htvm><span role="img" aria-label="Build Club" style="--logo:url(/logos/build-club.png);--logo-scale:1" data-astro-cid-bml4htvm></span></li><li data-astro-cid-bml4htvm><span role="img" aria-label="Haast" style="--logo:url(/logos/haast.png);--logo-scale:1" data-astro-cid-bml4htvm></span></li><li data-astro-cid-bml4htvm><span role="img" aria-label="Heo" style="--logo:url(/logos/heo.png);--logo-scale:1" data-astro-cid-bml4htvm></span></li><li data-astro-cid-bml4htvm><span role="img" aria-label="Kismet" style="--logo:url(/logos/kismet.png);--logo-scale:1" data-astro-cid-bml4htvm></span></li><li data-astro-cid-bml4htvm><span role="img" aria-label="kernl" style="--logo:url(/logos/kernl.svg);--logo-scale:0.65" data-astro-cid-bml4htvm></span></li><li data-astro-cid-bml4htvm><span role="img" aria-label="Lorikeet" style="--logo:url(/logos/lorikeet.png);--logo-scale:1" data-astro-cid-bml4htvm></span></li><li data-astro-cid-bml4htvm><span role="img" aria-label="quarterzip" style="--logo:url(/logos/quarterzip.png);--logo-scale:1" data-astro-cid-bml4htvm></span></li></ul></div></section><section class="subpage-section" aria-labelledby="customer-lorikeet"><div class="subpage-wrap split-layout"><div class="section-copy"><h2 id="customer-lorikeet">Lorikeet</h2><p class="lead">Lorikeet worked with Kindling on founder visibility and its Series A announcement, establishing Steve and Jamie as brands and generating inbound leads and a viral Series A announcement.</p><blockquote class="customer-quote"><p>“Helped us build credibility around our Series A.”</p><cite>Steve Hind<br>Co-Founder and CEO, Lorikeet</cite></blockquote></div><div class="photo-frame" data-astro-cid-k5z7kfkv><div class="customer-portrait" data-customer="lorikeet" data-astro-cid-fauuh2la><img src="/_astro/lorikeet.C2tttXov_ZVbynS.webp" srcset="/_astro/lorikeet.C2tttXov_Z26IrrV.webp 320w, /_astro/lorikeet.C2tttXov_1qWLry.webp 480w, /_astro/lorikeet.C2tttXov_1xucWt.webp 640w, /_astro/lorikeet.C2tttXov_Z1Sn6Ps.webp 800w, /_astro/lorikeet.C2tttXov_Z2pOLgg.webp 1080w, /_astro/lorikeet.C2tttXov_ZVbynS.webp 1280w" alt="Lorikeet founder portrait" sizes="(max-width: 900px) calc(100vw - 56px), 45vw" style="object-position:50% 38%;filter:saturate(.78)" loading="lazy" decoding="async" data-astro-cid-fauuh2la="true" width="1280" height="853"></div><span class="photo-corner photo-corner--tl" aria-hidden="true" data-astro-cid-k5z7kfkv></span><span class="photo-corner photo-corner--tr" aria-hidden="true" data-astro-cid-k5z7kfkv></span><span class="photo-corner photo-corner--bl" aria-hidden="true" data-astro-cid-k5z7kfkv></span><span class="photo-corner photo-corner--br" aria-hidden="true" data-astro-cid-k5z7kfkv></span></div></div></section><section class="subpage-section" aria-labelledby="customer-stories"><div class="subpage-wrap"><header class="section-intro"><h2 id="customer-stories">Work shaped around each company.</h2></header><div class="editorial-cards two-columns"><article><div class="customer-portrait" data-customer="a1base" data-astro-cid-fauuh2la><img src="/_astro/a1base.tChwcNFS_1Qzh0c.webp" srcset="/_astro/a1base.tChwcNFS_Z1xHWbB.webp 320w, /_astro/a1base.tChwcNFS_1Mqmg1.webp 480w, /_astro/a1base.tChwcNFS_KNgCV.webp 640w, /_astro/a1base.tChwcNFS_ZfNNY9.webp 800w, /_astro/a1base.tChwcNFS_1Qzh0c.webp 904w" alt="The A1Base founders together" sizes="(max-width: 599px) calc(100vw - 32px), 45vw" style="object-position:50% 50%;filter:saturate(.85) brightness(1.06)" loading="lazy" decoding="async" data-astro-cid-fauuh2la="true" width="904" height="508"></div><div class="section-copy"><h3>A1Base</h3><p>A1Base needed to develop its content function while the founders were focused on Y Combinator.</p><p>1.6m impressions and 30+ qualified leads within two months.</p></div></article><article><div class="customer-portrait" data-customer="kc-ventures" data-astro-cid-fauuh2la><img src="/_astro/kc-ventures.CjEbNuPT_1u9J38.webp" srcset="/_astro/kc-ventures.CjEbNuPT_Z1qJGU4.webp 320w, /_astro/kc-ventures.CjEbNuPT_Z15lQKP.webp 480w, /_astro/kc-ventures.CjEbNuPT_1u9J38.webp 512w" alt="KC Ventures founder portrait" sizes="(max-width: 599px) calc(100vw - 32px), 45vw" style="object-position:50% 12%;filter:saturate(.85)" loading="lazy" decoding="async" data-astro-cid-fauuh2la="true" width="512" height="512"></div><div class="section-copy"><h3>KC Ventures</h3><p>Kindling helped KC Ventures build its public presence from the ground up, across content, podcasts and a newsletter.</p><p>$250k of work signed after turning on Supercharge.</p></div></article><article><div class="customer-portrait" data-customer="build-club" data-astro-cid-fauuh2la><img src="/_astro/build-club.SmKp8nbs_Z118GvL.webp" srcset="/_astro/build-club.SmKp8nbs_Kdube.webp 320w, /_astro/build-club.SmKp8nbs_Z1JmjRW.webp 480w, /_astro/build-club.SmKp8nbs_Pt8dY.webp 640w, /_astro/build-club.SmKp8nbs_ZVFW5X.webp 800w, /_astro/build-club.SmKp8nbs_Z118GvL.webp 1078w" alt="Annie, founder of Build Club" sizes="(max-width: 599px) calc(100vw - 32px), 45vw" style="object-position:50% 0%;filter:saturate(.78)" loading="lazy" decoding="async" data-astro-cid-fauuh2la="true" width="1078" height="1020"></div><div class="section-copy"><h3>Build Club</h3><p>Build Club came in with no enterprise sales pipeline or inbound leads.</p><p>50x increase in enterprise sales pipeline through product launch content, PR and vlogs.</p></div></article><article><div class="customer-portrait" data-customer="truestate" data-astro-cid-fauuh2la><img src="/_astro/truestate.DCHD2Ass_5sKcE.webp" srcset="/_astro/truestate.DCHD2Ass_Z13vdHs.webp 320w, /_astro/truestate.DCHD2Ass_ZBrtCC.webp 480w, /_astro/truestate.DCHD2Ass_2h6HbY.webp 640w, /_astro/truestate.DCHD2Ass_5sKcE.webp 800w" alt="Truestate founder portrait" sizes="(max-width: 599px) calc(100vw - 32px), 45vw" style="object-position:50% 25%;filter:saturate(.85) brightness(1.03)" loading="lazy" decoding="async" data-astro-cid-fauuh2la="true" width="800" height="800"></div><div class="section-copy"><h3>Truestate</h3><p>Truestate’s founder started without a clear approach to B2B distribution.</p><p>Working with Kindling helped him build a full B2B distribution function.</p></div></article></div></div></section><section class="subpage-quote subpage-wrap" aria-label="kernl testimonial"><blockquote><p>“Kindling has become our B2B content function.”</p><cite>Harriet Dwyer<br>Co-Founder and CEO, kernl</cite></blockquote></section></div></main><div class="footer-prelude" data-astro-cid-jo6i4kqk><section class="footer-invitation" aria-labelledby="footer-invitation-title" data-astro-cid-jo6i4kqk><h2 id="footer-invitation-title" data-astro-cid-jo6i4kqk><span data-astro-cid-jo6i4kqk>You build your company.</span><span data-astro-cid-jo6i4kqk>We’ll <em data-astro-cid-jo6i4kqk>tell your story.</em></span></h2><p class="invitation-description" data-astro-cid-jo6i4kqk>Find customers. Find investors. Build trust in your market.</p><div class="invitation-actions" data-astro-cid-jo6i4kqk><a class="action-button button--ink" href="https://kindling.typeform.com/enquire" data-astro-cid-dyks4r25>Talk to Us</a><a class="action-button button--outline" href="https://app.kindling.team" data-astro-cid-dyks4r25>Log in</a></div></section></div><footer class="closing-footer" data-astro-cid-jo6i4kqk><div class="footer-panel" data-astro-cid-jo6i4kqk><div class="footer-overview" data-astro-cid-jo6i4kqk><div class="footer-links-column" data-astro-cid-jo6i4kqk><div class="footer-directory" data-astro-cid-jo6i4kqk><nav aria-label="Footer navigation" data-astro-cid-jo6i4kqk><p class="footer-label" data-astro-cid-jo6i4kqk>Explore</p><a href="/network" data-astro-cid-jo6i4kqk>Network</a><a href="/customers" data-astro-cid-jo6i4kqk>Customers</a><a href="/offerings" data-astro-cid-jo6i4kqk>Offerings</a><a href="/who-we-are" data-astro-cid-jo6i4kqk>Who We Are</a></nav><nav aria-label="The Sachin and Adam Show" data-astro-cid-jo6i4kqk><p class="footer-label" data-astro-cid-jo6i4kqk>Check out the show</p><a href="https://www.youtube.com/@sachinandadam" data-astro-cid-jo6i4kqk>YouTube</a><a href="https://x.com/Sachin_and_Adam" data-astro-cid-jo6i4kqk>X (formerly Twitter)</a></nav></div><div class="footer-ai" data-astro-cid-jo6i4kqk><p class="footer-label" data-astro-cid-jo6i4kqk>Ask AI about us</p><nav class="footer-ai-links" aria-label="Ask AI about Kindling and The Sachin and Adam Show" data-astro-cid-jo6i4kqk><a href="https://chatgpt.com/?q=Tell%20me%20about%20Kindling%20(https%3A%2F%2Fkindling.team%2F)%20and%20The%20Sachin%20and%20Adam%20Show%20(https%3A%2F%2Fwww.youtube.com%2F%40sachinandadam%3B%20https%3A%2F%2Fx.com%2FSachin_and_Adam).%20What%20does%20Kindling%20do%2C%20what%20does%20the%20show%20cover%2C%20and%20how%20are%20they%20connected%3F%20Use%20current%20public%20sources%2C%20cite%20links%2C%20and%20distinguish%20verified%20facts%20from%20anything%20you%20cannot%20confirm." target="_blank" rel="noopener noreferrer" aria-label="Ask ChatGPT about Kindling and The Sachin and Adam Show (opens in a new tab)" title="Ask ChatGPT" data-astro-cid-jo6i4kqk><span aria-hidden="true" style="--ai-icon:url(/icons/ai/chatgpt.svg)" data-astro-cid-jo6i4kqk></span></a><a href="https://claude.ai/new?q=Tell%20me%20about%20Kindling%20(https%3A%2F%2Fkindling.team%2F)%20and%20The%20Sachin%20and%20Adam%20Show%20(https%3A%2F%2Fwww.youtube.com%2F%40sachinandadam%3B%20https%3A%2F%2Fx.com%2FSachin_and_Adam).%20What%20does%20Kindling%20do%2C%20what%20does%20the%20show%20cover%2C%20and%20how%20are%20they%20connected%3F%20Use%20current%20public%20sources%2C%20cite%20links%2C%20and%20distinguish%20verified%20facts%20from%20anything%20you%20cannot%20confirm." target="_blank" rel="noopener noreferrer" aria-label="Ask Claude about Kindling and The Sachin and Adam Show (opens in a new tab)" title="Ask Claude" data-astro-cid-jo6i4kqk><span aria-hidden="true" style="--ai-icon:url(/icons/ai/claude.svg)" data-astro-cid-jo6i4kqk></span></a><a href="https://www.google.com/search?udm=50&amp;q=Tell%20me%20about%20Kindling%20(https%3A%2F%2Fkindling.team%2F)%20and%20The%20Sachin%20and%20Adam%20Show%20(https%3A%2F%2Fwww.youtube.com%2F%40sachinandadam%3B%20https%3A%2F%2Fx.com%2FSachin_and_Adam).%20What%20does%20Kindling%20do%2C%20what%20does%20the%20show%20cover%2C%20and%20how%20are%20they%20connected%3F%20Use%20current%20public%20sources%2C%20cite%20links%2C%20and%20distinguish%20verified%20facts%20from%20anything%20you%20cannot%20confirm." target="_blank" rel="noopener noreferrer" aria-label="Ask Google AI about Kindling and The Sachin and Adam Show (opens in a new tab)" title="Ask Google AI" data-astro-cid-jo6i4kqk><span aria-hidden="true" style="--ai-icon:url(/icons/ai/google.svg)" data-astro-cid-jo6i4kqk></span></a><a href="https://www.perplexity.ai/search/new?q=Tell%20me%20about%20Kindling%20(https%3A%2F%2Fkindling.team%2F)%20and%20The%20Sachin%20and%20Adam%20Show%20(https%3A%2F%2Fwww.youtube.com%2F%40sachinandadam%3B%20https%3A%2F%2Fx.com%2FSachin_and_Adam).%20What%20does%20Kindling%20do%2C%20what%20does%20the%20show%20cover%2C%20and%20how%20are%20they%20connected%3F%20Use%20current%20public%20sources%2C%20cite%20links%2C%20and%20distinguish%20verified%20facts%20from%20anything%20you%20cannot%20confirm." target="_blank" rel="noopener noreferrer" aria-label="Ask Perplexity about Kindling and The Sachin and Adam Show (opens in a new tab)" title="Ask Perplexity" data-astro-cid-jo6i4kqk><span aria-hidden="true" style="--ai-icon:url(/icons/ai/perplexity.svg)" data-astro-cid-jo6i4kqk></span></a><a href="https://x.com/i/grok?text=Tell%20me%20about%20Kindling%20(https%3A%2F%2Fkindling.team%2F)%20and%20The%20Sachin%20and%20Adam%20Show%20(https%3A%2F%2Fwww.youtube.com%2F%40sachinandadam%3B%20https%3A%2F%2Fx.com%2FSachin_and_Adam).%20What%20does%20Kindling%20do%2C%20what%20does%20the%20show%20cover%2C%20and%20how%20are%20they%20connected%3F%20Use%20current%20public%20sources%2C%20cite%20links%2C%20and%20distinguish%20verified%20facts%20from%20anything%20you%20cannot%20confirm." target="_blank" rel="noopener noreferrer" aria-label="Ask Grok about Kindling and The Sachin and Adam Show (opens in a new tab)" title="Ask Grok" data-astro-cid-jo6i4kqk><span aria-hidden="true" style="--ai-icon:url(/icons/ai/grok.svg)" data-astro-cid-jo6i4kqk></span></a></nav></div></div><div class="footer-brand-column" data-astro-cid-jo6i4kqk><a class="footer-brandmark" href="/" aria-label="Kindling home" data-astro-cid-jo6i4kqk><img src="/brand/kindling-wordmark-cream.svg" alt="Kindling" width="3343" height="1028" loading="lazy" data-astro-cid-jo6i4kqk></a></div></div><div class="footer-baseline" data-astro-cid-jo6i4kqk><a class="footer-privacy" href="/privacy" data-astro-cid-jo6i4kqk>Privacy Policy</a><span class="footer-copyright" data-astro-cid-jo6i4kqk>© 2026 Kindling Tech Pty Ltd</span></div></div></footer></div></body></html>

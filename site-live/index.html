@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" href="/_astro/syne-latin-wght-normal.BVsvWWA4.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="/_astro/instrument-sans-latin-wght-normal.BbzFLZTg.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="/_astro/texturina-latin-400-italic.DlX822Mc.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="/_astro/texturina-latin-500-italic.Bom9S7_e.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="/brand/kindling-wordmark-brown.svg?v=2b0a10" as="image" type="image/svg+xml"><title>Kindling | Tell your story. Build trust.</title><meta name="description" content="Kindling helps companies find customers, reach investors and build trust through strategy, storytelling and creative production."><meta name="robots" content="noindex, nofollow"><link rel="canonical" href="https://landing-infinite-fun.vercel.app/"><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32"><link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"><link rel="sitemap" href="/sitemap.xml" type="application/xml"><meta name="theme-color" content="#FAFAFA"><meta property="og:type" content="website"><meta property="og:site_name" content="Kindling"><meta property="og:title" content="Kindling | Tell your story. Build trust."><meta property="og:description" content="Kindling helps companies find customers, reach investors and build trust through strategy, storytelling and creative production."><meta property="og:url" content="https://landing-infinite-fun.vercel.app/"><meta property="og:image" content="https://landing-infinite-fun.vercel.app/social-preview-wordmark.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Kindling in dark brown, centred on off-white within four corner brackets."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://landing-infinite-fun.vercel.app/social-preview-wordmark.png"><meta name="twitter:image:alt" content="Kindling in dark brown, centred on off-white within four corner brackets."><meta name="twitter:title" content="Kindling | Tell your story. Build trust."><meta name="twitter:description" content="Kindling helps companies find customers, reach investors and build trust through strategy, storytelling and creative production."><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://landing-infinite-fun.vercel.app/#organization","name":"Kindling","legalName":"Kindling Tech Pty Ltd","url":"https://landing-infinite-fun.vercel.app","logo":"https://landing-infinite-fun.vercel.app/brand/kindling-wordmark-brown.svg"},{"@type":"WebSite","@id":"https://landing-infinite-fun.vercel.app/#website","url":"https://landing-infinite-fun.vercel.app","name":"Kindling","publisher":{"@id":"https://landing-infinite-fun.vercel.app/#organization"}}]}</script><link rel="stylesheet" href="/_astro/BaseLayout.Dw9DyV_e.css?v=2b0a10"><link rel="stylesheet" href="/_astro/_..DZGw0l0J.css?v=2b0a10"><link rel="stylesheet" href="/img/overrides.css?v=2"></head><body class="home-page"><dialog class="splash" data-kindling-splash aria-label="Loading Kindling" data-astro-cid-wx4ry4h2><svg class="intro-mark" viewBox="0 0 2400 734" aria-hidden="true" data-astro-cid-wx4ry4h2><defs data-astro-cid-wx4ry4h2><filter id="intro-ink" x="-10%" y="-30%" width="120%" height="190%" color-interpolation-filters="sRGB" data-astro-cid-wx4ry4h2><feGaussianBlur in="SourceAlpha" stdDeviation="29" result="b" data-astro-cid-wx4ry4h2></feGaussianBlur><feOffset in="b" dy="0" result="o" data-astro-cid-wx4ry4h2></feOffset><feColorMatrix in="o" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 200 -199.5" result="g" data-astro-cid-wx4ry4h2></feColorMatrix><feFlood flood-color="#2F0710" data-astro-cid-wx4ry4h2></feFlood><feComposite in2="g" operator="in" data-astro-cid-wx4ry4h2></feComposite></filter></defs><image href="/brand/kindling-wordmark-brown.svg?v=2b0a10" width="2400" height="734" filter="url(#intro-ink)" data-astro-cid-wx4ry4h2></image></svg></dialog><script data-splash-controller>
+  (() => {
+    const splash = document.querySelector('[data-kindling-splash]');
+    const root = document.documentElement;
+    const sessionKey = 'kindling:splash-seen:v1';
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    if (!splash || typeof splash.showModal !== 'function') return;
+    // No splash on subsequent routes, reloads or restored pages in this tab.
+    try { if (sessionStorage.getItem(sessionKey) === '1') return; } catch {}
+    if (reduced.matches) return;
+
+    let closed = false;
+    let started = false;
+    let animationFrame;
+    let startTimer;
+    const finish = () => {
+      if (closed) return;
+      closed = true;
+      clearTimeout(failsafe);
+      clearTimeout(startTimer);
+      cancelAnimationFrame(animationFrame);
+      root.removeAttribute('data-splash-active');
+      if (splash.open) splash.close();
+      reduced.removeEventListener('change', onMotionChange);
+      window.removeEventListener('pagehide', onPageHide);
+      document.removeEventListener('DOMContentLoaded', onReady);
+      try { sessionStorage.setItem(sessionKey, '1'); } catch {}
+    };
+    const onMotionChange = () => { if (reduced.matches) finish(); };
+    const onPageHide = () => finish();
+    // Original reference ink-in / melt / lift choreography, unchanged.
+    const blur = splash.querySelector('feGaussianBlur');
+    const offset = splash.querySelector('feOffset');
+    const matrix = splash.querySelector('feColorMatrix');
+    const BLUR = 2400 * .012, SLOPE = 200, T_FAT = .21;
+    const INK = 1500, MELT = 850, LIFT = 2250, END = 2950;
+    const clamp = p => p < 0 ? 0 : p > 1 ? 1 : p;
+    const outC = p => 1 - Math.pow(1 - p, 3);
+    const inC = p => p * p * p;
+    const smooth = p => p * p * p * (p * (p * 6 - 15) + 10);
+    const coefficients = (t, k) => '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ' + (1 + (SLOPE - 1) * k) + ' ' + ((.5 - SLOPE * t) * k);
+    let last = '';
+    const setInk = (sx, sy, dy, values) => {
+      const key = sx.toFixed(1) + sy.toFixed(1) + dy.toFixed(1) + values;
+      if (key === last) return;
+      last = key;
+      blur.setAttribute('stdDeviation', sx.toFixed(1) + ' ' + sy.toFixed(1));
+      offset.setAttribute('dy', dy.toFixed(1));
+      matrix.setAttribute('values', values);
+    };
+    let firstFrame;
+    const frame = now => {
+      if (closed) return;
+      firstFrame ??= now;
+      const ms = now - firstFrame;
+      if (ms < INK) {
+        const p = ms / INK, t = 1 + (T_FAT - 1) * outC(clamp(p / .7)), k = 1 - smooth(clamp((p - .3) / .7));
+        setInk(BLUR * k, BLUR * k, 0, coefficients(t, k));
+      } else {
+        const q = clamp((ms - INK) / MELT), e = inC(q), k = smooth(clamp(q * 2.2)), t = T_FAT + (1.05 - T_FAT) * e;
+        setInk(BLUR * k * (1 + e), BLUR * k * (1 + 5 * e), 734 * .22 * e, coefficients(t, k));
+      }
+      if (ms >= LIFT) splash.dataset.leaving = '';
+      if (ms < END) animationFrame = requestAnimationFrame(frame);
+      else finish();
+    };
+    const start = () => {
+      if (started || closed) return;
+      started = true;
+      clearTimeout(startTimer);
+      animationFrame = requestAnimationFrame(frame);
+    };
+    const onReady = async () => {
+      // Preload the vector wordmark inside the original animation coordinate system.
+      const logo = new Image();
+      logo.src = '/brand/kindling-wordmark-brown.svg';
+      await Promise.allSettled([logo.decode()]);
+      start();
+    };
+    // Keep the reference's 900ms artwork fallback, plus a hard modal failsafe.
+    const failsafe = setTimeout(finish, 4000);
+    startTimer = setTimeout(start, 900);
+    splash.addEventListener('cancel', event => { event.preventDefault(); finish(); });
+    window.addEventListener('pagehide', onPageHide);
+    reduced.addEventListener('change', onMotionChange);
+    try {
+      splash.showModal();
+      root.setAttribute('data-splash-active', '');
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady, {once: true});
+      else onReady();
+    } catch { finish(); }
+  })();
+</script><a href="#main" class="skip-link">Skip to content</a><div class="site-shell v2-home"><!-- Native sticky positioning owns scroll; CSS timelines own the frame morph. --><header class="frame-dock landing" data-astro-cid-nen7h5rs><nav class="frame-nav" data-frame-nav aria-label="Primary" data-astro-cid-nen7h5rs><i class="frame-corner top-left" aria-hidden="true" data-astro-cid-nen7h5rs></i><i class="frame-corner top-right" aria-hidden="true" data-astro-cid-nen7h5rs></i><i class="frame-corner bottom-left" aria-hidden="true" data-astro-cid-nen7h5rs></i><i class="frame-corner bottom-right" aria-hidden="true" data-astro-cid-nen7h5rs></i><div class="frame-links" data-astro-cid-nen7h5rs><a href="/network" data-astro-cid-nen7h5rs>Network</a><a href="/customers" data-astro-cid-nen7h5rs>Customers</a><a href="/offerings" data-astro-cid-nen7h5rs>Offerings</a><a href="/who-we-are" data-astro-cid-nen7h5rs>Who We Are</a></div><a class="frame-home" href="/" aria-label="Kindling home" data-astro-cid-nen7h5rs><img src="/brand/kindling-wordmark-brown.svg?v=2b0a10" alt="Kindling" width="3343" height="1028" data-astro-cid-nen7h5rs></a><div class="frame-actions" data-astro-cid-nen7h5rs><a href="https://app.kindling.team" data-astro-cid-nen7h5rs>Log in</a><a class="frame-contact" href="https://kindling.typeform.com/enquire" data-astro-cid-nen7h5rs>Talk to Us</a></div><details class="compact-menu" data-compact-menu data-astro-cid-nen7h5rs><summary role="button" aria-label="Open menu" aria-controls="compact-navigation" data-astro-cid-nen7h5rs><span class="menu-symbol" aria-hidden="true" data-astro-cid-nen7h5rs><i data-astro-cid-nen7h5rs></i><i data-astro-cid-nen7h5rs></i></span></summary><div class="compact-panel" id="compact-navigation" data-astro-cid-nen7h5rs><div class="compact-links" data-astro-cid-nen7h5rs><a href="/network" data-astro-cid-nen7h5rs>Network</a><a href="/customers" data-astro-cid-nen7h5rs>Customers</a><a href="/offerings" data-astro-cid-nen7h5rs>Offerings</a><a href="/who-we-are" data-astro-cid-nen7h5rs>Who We Are</a></div><div class="compact-actions" data-astro-cid-nen7h5rs><a href="https://app.kindling.team" data-astro-cid-nen7h5rs>Log in</a><a class="compact-contact" href="https://kindling.typeform.com/enquire" data-astro-cid-nen7h5rs>Talk to Us</a></div></div></details></nav></header><script data-nav-controller>
+  (() => {
+    const menu = document.querySelector('[data-compact-menu]');
+    if (!menu) return;
+    const toggle = menu.querySelector('summary');
+    const panel = menu.querySelector('.compact-panel');
+    const desktop = matchMedia('(min-width: 1201px)');
+    let expanded = menu.open;
+    let closing = 0;
+    const update = () => {
+      toggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+      toggle.setAttribute('aria-expanded', String(expanded));
+      panel.inert = !expanded;
+    };
+    menu.setAttribute('data-enhanced', '');
+    if (expanded) menu.setAttribute('data-open', '');
+    update();
+    const close = (restoreFocus = false, immediate = false) => {
+      if (!menu.open) return;
+      clearTimeout(closing);
+      expanded = false;
+      menu.removeAttribute('data-open');
+      update();
+      if (restoreFocus) toggle.focus({ preventScroll: true });
+      if (immediate) menu.open = false;
+      else closing = setTimeout(() => { if (!expanded) menu.open = false; }, 240);
+    };
+    toggle.addEventListener('click', event => {
+      event.preventDefault();
+      if (expanded) { close(); return; }
+      clearTimeout(closing);
+      menu.open = true;
+      // Establish the closed style once, then let CSS interpolate both directions.
+      panel.getBoundingClientRect();
+      expanded = true;
+      menu.setAttribute('data-open', '');
+      update();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && expanded) { event.preventDefault(); close(true); }
+    });
+    document.addEventListener('pointerdown', event => {
+      if (!menu.contains(event.target)) close();
+    });
+    document.addEventListener('focusin', event => {
+      if (!menu.contains(event.target)) close();
+    });
+    menu.addEventListener('click', event => {
+      if (event.target.closest('a')) close(false, true);
+    });
+    desktop.addEventListener('change', () => {
+      if (desktop.matches) {
+        const focused = menu.contains(document.activeElement);
+        close(false, true);
+        if (focused) document.querySelector('.frame-home').focus({ preventScroll: true });
+      }
+    });
+  })();
+</script><script data-nav-position-controller>
+  (() => {
+    const dock = document.querySelector('.frame-dock');
+    if (!dock) return;
+    let threshold = 0;
+    let floating = false;
+    const update = () => {
+      // Only the desktop landing frame participates in initial elastic overscroll.
+      const next = threshold === 0 || window.scrollY > threshold;
+      if (next === floating) return;
+      floating = next;
+      dock.toggleAttribute('data-floating', floating);
+    };
+    const measure = () => {
+      // CSS chooses the threshold: end of the frame morph, or zero for plain navs.
+      threshold = Math.max(0, parseFloat(getComputedStyle(dock, '::after').height) || 0);
+      update();
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', measure, { passive: true });
+    window.addEventListener('pageshow', measure);
+    matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', measure);
+    measure();
+  })();
+</script><main id="main" tabindex="-1"><div class="page"><script type="module" src="/_astro/HomeInteractions.astro_astro_type_script_index_0_lang.C0y2FkIG.js"></script><header class="hero" id="top"><div class="viewfinder" aria-hidden="true"><i class="vf-brk tl"></i><i class="vf-brk tr"></i><i class="vf-brk bl"></i><i class="vf-brk br"></i><i class="vf-ticks"></i></div><div class="canvas"><div class="stack2"><img src="/img/hero.jpg" alt="A man in profile in a dark jacket, lit by an orange window-shaped patch of sunlight on the wall behind him" width="1429" height="953" fetchpriority="high"></div><div class="hero-copy"><h1>You build your company.<br><em class="acc">We’ll help people understand it.</em></h1><p class="lead">Find customers. Find investors. Build trust in your market.</p><div class="cta"><a class="action-button button--primary" href="https://kindling.typeform.com/enquire" data-astro-cid-dyks4r25>Talk to Us</a><a class="action-button button--outline" href="/network" data-astro-cid-dyks4r25>The Kindling Network</a></div><div class="hero-logos" role="region" aria-label="Companies" tabindex="0" data-astro-cid-ezjczz44><div class="logo-track" data-astro-cid-ezjczz44><ul class="logo-group" data-astro-cid-ezjczz44><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Bifrost" style="--logo:url(/logos/bifrost.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Build Club" style="--logo:url(/logos/build-club.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Haast" style="--logo:url(/logos/haast.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Heo" style="--logo:url(/logos/heo.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Kismet" style="--logo:url(/logos/kismet.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="kernl" style="--logo:url(/logos/kernl.svg);--logo-scale:0.65" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Lorikeet" style="--logo:url(/logos/lorikeet.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="quarterzip" style="--logo:url(/logos/quarterzip.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li></ul><ul class="logo-group" aria-hidden="true" data-astro-cid-ezjczz44><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Bifrost" style="--logo:url(/logos/bifrost.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Build Club" style="--logo:url(/logos/build-club.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Haast" style="--logo:url(/logos/haast.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Heo" style="--logo:url(/logos/heo.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Kismet" style="--logo:url(/logos/kismet.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="kernl" style="--logo:url(/logos/kernl.svg);--logo-scale:0.65" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="Lorikeet" style="--logo:url(/logos/lorikeet.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li><li data-astro-cid-ezjczz44><span class="company-logo" role="img" aria-label="quarterzip" style="--logo:url(/logos/quarterzip.png);--logo-scale:1" data-astro-cid-ezjczz44></span></li></ul></div></div></div></div></header><section class="belief" aria-label="Bifrost testimonial"><div class="wrap"><figure class="belief-testimonial"><blockquote><p>“Kindling runs our marketing function through a combination of talented people, software and creatives. We’ve seen a massive increase in inbound demand from robotics researchers”</p></blockquote><figcaption><strong>Charles Wong</strong> (CEO @ Bifrost AI)</figcaption></figure></div></section><section class="process-showcase" data-process-tabs aria-labelledby="process-heading" data-astro-cid-ctfrwtnz><div class="process-surface" data-astro-cid-ctfrwtnz><h2 id="process-heading" data-astro-cid-ctfrwtnz>Bring what you know.<span data-astro-cid-ctfrwtnz>We’ll take it from there.</span></h2><div class="process-layout" data-astro-cid-ctfrwtnz><div class="process-visual" data-astro-cid-ctfrwtnz><div class="process-dots" role="group" aria-label="Choose a step" data-astro-cid-ctfrwtnz><button type="button" data-step-dot aria-label="Choose" aria-pressed="true" aria-controls="process-step-0" data-astro-cid-ctfrwtnz><span data-astro-cid-ctfrwtnz><i data-astro-cid-ctfrwtnz></i></span></button><button type="button" data-step-dot aria-label="Create" aria-pressed="false" aria-controls="process-step-1" data-astro-cid-ctfrwtnz><span data-astro-cid-ctfrwtnz><i data-astro-cid-ctfrwtnz></i></span></button><button type="button" data-step-dot aria-label="Learn" aria-pressed="false" aria-controls="process-step-2" data-astro-cid-ctfrwtnz><span data-astro-cid-ctfrwtnz><i data-astro-cid-ctfrwtnz></i></span></button></div><div class="process-stack" aria-hidden="true" data-astro-cid-ctfrwtnz><div class="process-shot" data-process-shot data-depth="0" data-astro-cid-ctfrwtnz><img src="/img/process-choose.jpg" alt="" loading="lazy" decoding="async" width="1232" height="928"></div><div class="process-shot" data-process-shot data-depth="1" data-astro-cid-ctfrwtnz><img src="/img/process-create.jpg" alt="" loading="lazy" decoding="async" width="1232" height="928"></div><div class="process-shot" data-process-shot data-depth="2" data-astro-cid-ctfrwtnz><img src="/img/process-learn.jpg" alt="" loading="lazy" decoding="async" width="1232" height="928"></div></div></div><div class="process-steps" data-astro-cid-ctfrwtnz><article class="process-step" id="process-step-0" data-process-step data-active data-astro-cid-ctfrwtnz><h3 data-astro-cid-ctfrwtnz><span class="step-static-label" data-astro-cid-ctfrwtnz>Choose</span><button type="button" data-step-select aria-pressed="true" data-astro-cid-ctfrwtnz>Choose</button></h3><p data-astro-cid-ctfrwtnz>We gather context about your company, find ideas your audience should hear and agree who to reach, what to say and where to share it.</p></article><article class="process-step" id="process-step-1" data-process-step data-astro-cid-ctfrwtnz><h3 data-astro-cid-ctfrwtnz><span class="step-static-label" data-astro-cid-ctfrwtnz>Create</span><button type="button" data-step-select aria-pressed="false" data-astro-cid-ctfrwtnz>Create</button></h3><p data-astro-cid-ctfrwtnz>Strategists and creative people develop the content. We review and refine it with you, so it says what you mean before it goes out.</p></article><article class="process-step" id="process-step-2" data-process-step data-astro-cid-ctfrwtnz><h3 data-astro-cid-ctfrwtnz><span class="step-static-label" data-astro-cid-ctfrwtnz>Learn</span><button type="button" data-step-select aria-pressed="false" data-astro-cid-ctfrwtnz>Learn</button></h3><p data-astro-cid-ctfrwtnz>We publish, review the response and use what we learn to choose the next ideas. Each round builds on the last.</p></article></div></div></div></section><section class="work" id="work"><div class="wrap"><header class="work-head"><h2>Meet the <span class="acc">Kindling network</span>.</h2><p class="lead">People who have worked with Red Bull, WHOOP, Harley‑Davidson and many more.</p></header><div class="mosaic" id="story-gallery" role="region" aria-roledescription="carousel" aria-label="Kindling network" tabindex="0"><figure class="frame cut"><div class="media media--photo"><img src="/_astro/ciaron.CxpPvOJ2_Z1k7K7w.webp" srcset="/_astro/ciaron.CxpPvOJ2_Z1xi3A1.webp 320w, /_astro/ciaron.CxpPvOJ2_169I9b.webp 480w, /_astro/ciaron.CxpPvOJ2_Z2meCbR.webp 640w, /_astro/ciaron.CxpPvOJ2_ZpQFrM.webp 800w, /_astro/ciaron.CxpPvOJ2_ZOO6vu.webp 1080w, /_astro/ciaron.CxpPvOJ2_Z1k7K7w.webp 1366w" alt="Ciaron" style="object-position:50% 50%;filter:grayscale(1) contrast(0.88) brightness(1.04)" sizes="(max-width: 599px) calc(100vw - 32px), (max-width: 900px) calc((100vw - 40px) / 2), (min-width: 1600px) 342px, calc((90vw - 72px) / 4)" loading="lazy" decoding="async" width="1366" height="2048"><figcaption class="cap"><span class="cap-title">Ciaron</span><span class="cap-subtitle">Videographer</span></figcaption></div></figure><figure class="frame cut"><div class="media media--photo"><img src="/_astro/molly.C2MTiErZ_Z3HqIN.webp" srcset="/_astro/molly.C2MTiErZ_Z2Ia6v.webp 320w, /_astro/molly.C2MTiErZ_Z1BLgt7.webp 480w, /_astro/molly.C2MTiErZ_tinfT.webp 640w, /_astro/molly.C2MTiErZ_ZnjYmt.webp 800w, /_astro/molly.C2MTiErZ_ZzHY0Q.webp 1080w, /_astro/molly.C2MTiErZ_Z20FBJu.webp 1440w, /_astro/molly.C2MTiErZ_Z3HqIN.webp 1600w" alt="Molly" style="object-position:50% 50%;filter:grayscale(1) contrast(0.94) brightness(0.92)" sizes="(max-width: 599px) calc(100vw - 32px), (max-width: 900px) calc((100vw - 40px) / 2), (min-width: 1600px) 342px, calc((90vw - 72px) / 4)" loading="lazy" decoding="async" width="1600" height="1285"><figcaption class="cap"><span class="cap-title">Molly</span><span class="cap-subtitle">Strategist</span></figcaption></div></figure><figure class="frame cut"><div class="media media--photo"><img src="/_astro/matt.sxcaOX46_Z2plSiv.webp" srcset="/_astro/matt.sxcaOX46_Z1RKSpf.webp 320w, /_astro/matt.sxcaOX46_lHCSw.webp 480w, /_astro/matt.sxcaOX46_1PglgH.webp 640w, /_astro/matt.sxcaOX46_Z2plSiv.webp 724w" alt="Matt" style="object-position:50% 50%;filter:grayscale(1) contrast(1.04) brightness(1.02)" sizes="(max-width: 599px) calc(100vw - 32px), (max-width: 900px) calc((100vw - 40px) / 2), (min-width: 1600px) 342px, calc((90vw - 72px) / 4)" loading="lazy" decoding="async" width="724" height="1086"><figcaption class="cap"><span class="cap-title">Matt</span><span class="cap-subtitle">Strategist</span></figcaption></div></figure><figure class="frame cut"><div class="media media--photo"><img src="/_astro/caitlin.BoiyJ3tE_33xad.webp" srcset="/_astro/caitlin.BoiyJ3tE_2o7Sq5.webp 320w, /_astro/caitlin.BoiyJ3tE_13imxD.webp 480w, /_astro/caitlin.BoiyJ3tE_2rFN8V.webp 640w, /_astro/caitlin.BoiyJ3tE_Z1T5TC2.webp 800w, /_astro/caitlin.BoiyJ3tE_1Wy6XB.webp 1080w, /_astro/caitlin.BoiyJ3tE_uzgNV.webp 1440w, /_astro/caitlin.BoiyJ3tE_1YjOCT.webp 1920w, /_astro/caitlin.BoiyJ3tE_ZhXSQ5.webp 2560w" alt="Caitlin" style="object-position:50% 0%;filter:grayscale(1) contrast(0.84) brightness(1.1)" sizes="(max-width: 599px) calc(100vw - 32px), (max-width: 900px) calc((100vw - 40px) / 2), (min-width: 1600px) 342px, calc((90vw - 72px) / 4)" loading="lazy" decoding="async" width="2730" height="4094"><figcaption class="cap"><span class="cap-title">Caitlin</span><span class="cap-subtitle">Producer</span></figcaption></div></figure></div></div></section><section class="stories" id="model"><div class="wrap"><h2>Build what <span class="acc">comes next</span>.</h2><div class="cards"><article class="card"><div class="media"><img src="/img/card-project.jpg" alt="A photographer in warm orange light holds a camera up to frame a shot" loading="lazy" decoding="async" width="1456" height="816"></div><div class="card-copy"><h3>Something worth making</h3><p>A founder shoot, customer story, event or launch film. We plan the production and assemble the team. We agree deliverables, timing and cost before starting.</p><a class="action-button button--outline" href="/offerings#project" data-astro-cid-dyks4r25>Explore Creative projects</a></div></article><article class="card"><div class="media"><img src="/img/card-launch.jpg" alt="A project dashboard listing plan, shoot, refine and post steps with budgets and status" loading="lazy" decoding="async" width="1287" height="1246"></div><div class="card-copy"><h3>Something worth sharing</h3><p>Launch a product or business with a series of content built around it. We help plan and create the pieces, all focused on that launch.</p><a class="action-button button--outline" href="/offerings#launch" data-astro-cid-dyks4r25>Explore Launch</a></div></article><article class="card"><div class="media"><img src="/img/card-embedded.jpg" alt="Two colleagues sit side by side at a computer in a bright orange-lit office" loading="lazy" decoding="async" width="1232" height="928"></div><div class="card-copy"><h3>Something worth continuing</h3><p>Treat marketing like another part of your business. Give the team your priorities, ideas and observations. We turn them into ongoing content, manage the work through publishing, and review what it achieves.</p><a class="action-button button--outline" href="/offerings#embedded" data-astro-cid-dyks4r25>Explore Embedded</a></div></article></div></div></section></div></main><div class="footer-prelude" data-astro-cid-jo6i4kqk><section class="footer-invitation" aria-labelledby="footer-invitation-title" data-astro-cid-jo6i4kqk><h2 id="footer-invitation-title" data-astro-cid-jo6i4kqk><span data-astro-cid-jo6i4kqk>You build your company.</span><span data-astro-cid-jo6i4kqk>We’ll <em data-astro-cid-jo6i4kqk>tell your story.</em></span></h2><p class="invitation-description" data-astro-cid-jo6i4kqk>Find customers. Find investors. Build trust in your market.</p><div class="invitation-actions" data-astro-cid-jo6i4kqk><a class="action-button button--ink" href="https://kindling.typeform.com/enquire" data-astro-cid-dyks4r25>Talk to Us</a><a class="action-button button--outline" href="https://app.kindling.team" data-astro-cid-dyks4r25>Log in</a></div></section></div><footer class="closing-footer" data-astro-cid-jo6i4kqk><div class="footer-panel" data-astro-cid-jo6i4kqk><div class="footer-overview" data-astro-cid-jo6i4kqk><div class="footer-links-column" data-astro-cid-jo6i4kqk><div class="footer-directory" data-astro-cid-jo6i4kqk><nav aria-label="Footer navigation" data-astro-cid-jo6i4kqk><p class="footer-label" data-astro-cid-jo6i4kqk>Explore</p><a href="/network" data-astro-cid-jo6i4kqk>Network</a><a href="/customers" data-astro-cid-jo6i4kqk>Customers</a><a href="/offerings" data-astro-cid-jo6i4kqk>Offerings</a><a href="/who-we-are" data-astro-cid-jo6i4kqk>Who We Are</a></nav><nav aria-label="The Sachin and Adam Show" data-astro-cid-jo6i4kqk><p class="footer-label" data-astro-cid-jo6i4kqk>Check out the show</p><a href="https://www.youtube.com/@sachinandadam" data-astro-cid-jo6i4kqk>YouTube</a><a href="https://x.com/Sachin_and_Adam" data-astro-cid-jo6i4kqk>X (formerly Twitter)</a></nav></div><div class="footer-ai" data-astro-cid-jo6i4kqk><p class="footer-label" data-astro-cid-jo6i4kqk>Ask AI about us</p><nav class="footer-ai-links" aria-label="Ask AI about Kindling and The Sachin and Adam Show" data-astro-cid-jo6i4kqk><a href="https://chatgpt.com/?q=Tell%20me%20about%20Kindling%20(https%3A%2F%2Fkindling.team%2F)%20and%20The%20Sachin%20and%20Adam%20Show%20(https%3A%2F%2Fwww.youtube.com%2F%40sachinandadam%3B%20https%3A%2F%2Fx.com%2FSachin_and_Adam).%20What%20does%20Kindling%20do%2C%20what%20does%20the%20show%20cover%2C%20and%20how%20are%20they%20connected%3F%20Use%20current%20public%20sources%2C%20cite%20links%2C%20and%20distinguish%20verified%20facts%20from%20anything%20you%20cannot%20confirm." target="_blank" rel="noopener noreferrer" aria-label="Ask ChatGPT about Kindling and The Sachin and Adam Show (opens in a new tab)" title="Ask ChatGPT" data-astro-cid-jo6i4kqk><span aria-hidden="true" style="--ai-icon:url(/icons/ai/chatgpt.svg)" data-astro-cid-jo6i4kqk></span></a><a href="https://claude.ai/new?q=Tell%20me%20about%20Kindling%20(https%3A%2F%2Fkindling.team%2F)%20and%20The%20Sachin%20and%20Adam%20Show%20(https%3A%2F%2Fwww.youtube.com%2F%40sachinandadam%3B%20https%3A%2F%2Fx.com%2FSachin_and_Adam).%20What%20does%20Kindling%20do%2C%20what%20does%20the%20show%20cover%2C%20and%20how%20are%20they%20connected%3F%20Use%20current%20public%20sources%2C%20cite%20links%2C%20and%20distinguish%20verified%20facts%20from%20anything%20you%20cannot%20confirm." target="_blank" rel="noopener noreferrer" aria-label="Ask Claude about Kindling and The Sachin and Adam Show (opens in a new tab)" title="Ask Claude" data-astro-cid-jo6i4kqk><span aria-hidden="true" style="--ai-icon:url(/icons/ai/claude.svg)" data-astro-cid-jo6i4kqk></span></a><a href="https://www.google.com/search?udm=50&amp;q=Tell%20me%20about%20Kindling%20(https%3A%2F%2Fkindling.team%2F)%20and%20The%20Sachin%20and%20Adam%20Show%20(https%3A%2F%2Fwww.youtube.com%2F%40sachinandadam%3B%20https%3A%2F%2Fx.com%2FSachin_and_Adam).%20What%20does%20Kindling%20do%2C%20what%20does%20the%20show%20cover%2C%20and%20how%20are%20they%20connected%3F%20Use%20current%20public%20sources%2C%20cite%20links%2C%20and%20distinguish%20verified%20facts%20from%20anything%20you%20cannot%20confirm." target="_blank" rel="noopener noreferrer" aria-label="Ask Google AI about Kindling and The Sachin and Adam Show (opens in a new tab)" title="Ask Google AI" data-astro-cid-jo6i4kqk><span aria-hidden="true" style="--ai-icon:url(/icons/ai/google.svg)" data-astro-cid-jo6i4kqk></span></a><a href="https://www.perplexity.ai/search/new?q=Tell%20me%20about%20Kindling%20(https%3A%2F%2Fkindling.team%2F)%20and%20The%20Sachin%20and%20Adam%20Show%20(https%3A%2F%2Fwww.youtube.com%2F%40sachinandadam%3B%20https%3A%2F%2Fx.com%2FSachin_and_Adam).%20What%20does%20Kindling%20do%2C%20what%20does%20the%20show%20cover%2C%20and%20how%20are%20they%20connected%3F%20Use%20current%20public%20sources%2C%20cite%20links%2C%20and%20distinguish%20verified%20facts%20from%20anything%20you%20cannot%20confirm." target="_blank" rel="noopener noreferrer" aria-label="Ask Perplexity about Kindling and The Sachin and Adam Show (opens in a new tab)" title="Ask Perplexity" data-astro-cid-jo6i4kqk><span aria-hidden="true" style="--ai-icon:url(/icons/ai/perplexity.svg)" data-astro-cid-jo6i4kqk></span></a><a href="https://x.com/i/grok?text=Tell%20me%20about%20Kindling%20(https%3A%2F%2Fkindling.team%2F)%20and%20The%20Sachin%20and%20Adam%20Show%20(https%3A%2F%2Fwww.youtube.com%2F%40sachinandadam%3B%20https%3A%2F%2Fx.com%2FSachin_and_Adam).%20What%20does%20Kindling%20do%2C%20what%20does%20the%20show%20cover%2C%20and%20how%20are%20they%20connected%3F%20Use%20current%20public%20sources%2C%20cite%20links%2C%20and%20distinguish%20verified%20facts%20from%20anything%20you%20cannot%20confirm." target="_blank" rel="noopener noreferrer" aria-label="Ask Grok about Kindling and The Sachin and Adam Show (opens in a new tab)" title="Ask Grok" data-astro-cid-jo6i4kqk><span aria-hidden="true" style="--ai-icon:url(/icons/ai/grok.svg)" data-astro-cid-jo6i4kqk></span></a></nav></div></div><div class="footer-brand-column" data-astro-cid-jo6i4kqk><a class="footer-brandmark" href="/" aria-label="Kindling home" data-astro-cid-jo6i4kqk><img src="/brand/kindling-wordmark-cream.svg" alt="Kindling" width="3343" height="1028" loading="lazy" data-astro-cid-jo6i4kqk></a></div></div><div class="footer-baseline" data-astro-cid-jo6i4kqk><a class="footer-privacy" href="/privacy" data-astro-cid-jo6i4kqk>Privacy Policy</a><span class="footer-copyright" data-astro-cid-jo6i4kqk>© 2026 Kindling Tech Pty Ltd</span></div></div></footer></div></body></html>

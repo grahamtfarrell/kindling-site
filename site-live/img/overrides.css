@@ -1,0 +1,18 @@
+/* Image pass: hero photo replaces the black placeholder. */
+/* orange offset block is kept (stack2:before); the photo sits exactly where the black box was (stack2:after) */
+.v2-home .stack2:after{content:none;display:none}
+.v2-home .stack2{--o:clamp(10px,1.2vw,22px)}
+.v2-home .stack2:before{inset:var(--o) var(--o) 0 0;transform:none}
+.v2-home .stack2>img{position:absolute;inset:0 0 var(--o) var(--o);width:calc(100% - var(--o));height:calc(100% - var(--o));object-fit:cover;object-position:62% 50%;display:block;z-index:1}
+/* home cards: image above the copy */
+.v2-home .card .media img{width:100%;height:100%;object-fit:cover;display:block}
+/* offerings: photographs sit in the former placeholder boxes */
+.asset-placeholder{background:var(--olive,#d4c284)}
+.asset-placeholder>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.process-shot>img{width:100%;height:100%;object-fit:cover;display:block}
+.v2-home .card .media{width:100%;align-self:stretch;overflow:hidden}
+.v2-home .card:nth-child(2) .media img{object-position:50% 52%}
+/* network hero */
+.network-hero-img{aspect-ratio:1.5;width:100%;min-width:0;overflow:hidden;background:var(--olive,#d4c284)}
+.network-hero-img>img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block}
+.asset-placeholder[data-asset="kindling-founders"]>img{object-position:100% 0%}
